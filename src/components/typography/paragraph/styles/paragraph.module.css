@@ -1,0 +1,5 @@
+.text {
+  font-size: 12px;
+  font-family: Barlow-Regular;
+  color: var(--text);
+}

@@ -1,0 +1,59 @@
+.container {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  z-index: 999;
+}
+
+.modalContainer {
+  display: flex;
+  background-color: white;
+  border-radius: 12px;
+  width: 40%;
+  min-width: 350px;
+  max-width: 800px;
+  min-height: 350px;
+  z-index: 1000;
+  position: relative;
+}
+
+.title {
+  font-family: Barlow-Regular;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 19px;
+  color: var(--darkPurple);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  max-width: 90%;
+  cursor: default;
+  z-index: 1001;
+}
+
+.button {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
+}
+
+.childrenContainer {
+  padding: 26px;
+}

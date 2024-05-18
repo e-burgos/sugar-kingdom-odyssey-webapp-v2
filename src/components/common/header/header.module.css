@@ -1,0 +1,78 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  width: 100vw;
+  height: 115px;
+  margin: 0;
+  padding: 0;
+  z-index: 999;
+  position: relative;
+}
+
+.bgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 0px 15px 10px;
+  height: 100%;
+  gap: 15px;
+}
+
+.labels {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  width: fit-content;
+  text-align: center;
+}
+
+.labels h1 {
+  font-weight: 400;
+  font-size: 20px !important;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+}
+
+@media screen and (max-width: 1350px) {
+  .labels h1 {
+    font-size: 18px !important;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .labels h1 {
+    font-size: 16px !important;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .avatar {
+    width: 190px !important;
+  }
+  .buttons {
+    width: fit-content;
+  }
+  .button {
+    width: 18vw !important;
+  }
+  .labels h1 {
+    display: none;
+  }
+}

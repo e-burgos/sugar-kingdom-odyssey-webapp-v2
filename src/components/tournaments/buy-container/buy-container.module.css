@@ -1,0 +1,72 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 20vw;
+  min-width: 300px;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: relative;
+  width: 100%;
+  z-index: 2;
+  margin-top: -10px;
+  aspect-ratio: 150/193;
+}
+
+.playButton {
+  z-index: 3;
+}
+
+.buyButton {
+  margin-top: 20px;
+}
+
+.x1Button {
+  position: absolute;
+  z-index: 2;
+  right: 0px;
+  top: -10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 15% 10% 20%;
+}
+
+.title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.tokens {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 5px;
+  max-height: 30px;
+  width: 100%;
+}
+
+.tooltip {
+  position: fixed;
+  cursor: pointer;
+  z-index: 999;
+}

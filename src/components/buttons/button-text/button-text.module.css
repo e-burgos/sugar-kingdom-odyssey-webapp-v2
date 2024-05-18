@@ -1,0 +1,40 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  position: relative;
+}
+
+.button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.imgBg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  padding: 10px;
+}
+
+@media screen and (max-width: 768px) {
+  .avatar {
+    height: 80%;
+  }
+}
