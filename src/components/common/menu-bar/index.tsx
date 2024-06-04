@@ -35,14 +35,17 @@ import TwitterH from "../../../assets/images/social/xH.svg";
 
 import ButtonImage from "../../buttons/button-image";
 import { linksData } from "../../../data/links";
-import { usePageOrchestrator } from "../../../store/usePageOrchestrator";
+import { useNavigate, useLocation } from "react-router-dom";
+import { appPaths } from "../../../router/RoutesConfig";
 
 interface MenuBarProps {
   className?: string;
 }
 
 const MenuBar: FunctionComponent<MenuBarProps> = ({ className }) => {
-  const { setCurrentPage } = usePageOrchestrator();
+  const navigate = useNavigate();
+  const location = useLocation();
+
   return (
     <aside
       className={`${styles.menuBar} ${className}`}
@@ -56,54 +59,67 @@ const MenuBar: FunctionComponent<MenuBarProps> = ({ className }) => {
           imgHover={Logo}
           height="13vh"
           aspectRatio="62/39"
-          onClick={() => setCurrentPage("home")}
+          onClick={() => navigate(appPaths.home)}
         />
         <ButtonImage
-          img={HomeButton}
+          img={location.pathname === appPaths.home ? HomeButtonH : HomeButton}
           imgHover={HomeButtonH}
           height="11vh"
           aspectRatio="115/52"
-          onClick={() => setCurrentPage("game")}
+          onClick={() => navigate(appPaths.home)}
         />
         <div className={styles.actions}>
           <ButtonImage
-            img={PlayButton}
+            img={location.pathname === appPaths.game ? PlayButtonH : PlayButton}
             imgHover={PlayButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            onClick={() => setCurrentPage("game")}
+            onClick={() => navigate(appPaths.game)}
           />
           <ButtonImage
-            img={LeadButton}
+            img={
+              location.pathname === appPaths.leaderboard
+                ? LeadButtonH
+                : LeadButton
+            }
             imgHover={LeadButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            onClick={() => setCurrentPage("leaderboard")}
+            onClick={() => navigate(appPaths.leaderboard)}
           />
           <ButtonImage
-            img={StakeButton}
+            img={
+              location.pathname === appPaths.staking
+                ? StakeButtonH
+                : StakeButton
+            }
             imgHover={StakeButtonH}
             height="6.5vh"
             aspectRatio="271/74"
             goToLink={linksData.stake}
-            //onClick={() => setCurrentPage("staking")}
           />
         </div>
         <div className={styles.separator} />
         <div className={styles.profile}>
           <ButtonImage
-            img={TryGameButton}
+            img={
+              location.pathname === appPaths.tryGame
+                ? TryGameButtonH
+                : TryGameButton
+            }
             imgHover={TryGameButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            onClick={() => setCurrentPage("profile")}
+            onClick={() => navigate(appPaths.tryGame)}
           />
           <ButtonImage
-            img={BuyButton}
+            img={
+              location.pathname === appPaths.buySugar ? BuyButtonH : BuyButton
+            }
             imgHover={BuyButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            goToLink={linksData.buy}
+            onClick={() => navigate(appPaths.buySugar)}
           />
           <ButtonImage
             img={FaqButton}

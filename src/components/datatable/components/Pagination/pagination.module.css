@@ -1,0 +1,42 @@
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  width: 100%;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+}
+
+.selectContainer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 50%;
+}
+
+.select {
+  display: block;
+  width: fit-content;
+  height: 30px;
+  color: white;
+  font-family: Gotham-Medium;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+.pageLabel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 0px 10px;
+  color: white;
+  font-family: Gotham-Medium;
+}

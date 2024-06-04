@@ -1,0 +1,628 @@
+{
+  "info": {
+    "name": "SugarOdessy",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "UserPost",
+      "event": [],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": "{{base_url}}/api/nonce/0x17b1484aFDDf35A54F0C567AdB7bCf1997ef4d32",
+        "body": {
+          "mode": "raw",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "AuthLogIn",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"0x17b1484aFDDf35A54F0C567AdB7bCf1997ef4d32\",\n  \"signature\": \"0xe309045b6e1aa51064e083e624b72d22c6371d47830587b17cdaac741b4dc10a64576302726f14729d14a22bead086962c94a452cd2d6b66f3807e73ae0a35ac1b\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "AuthSignIn",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/auth/0x17b1484aFDDf35A54F0C567AdB7bCf1997ef4d32/sign",
+            "body": {
+              "mode": "raw",
+              "raw": "50facc72c27b6c508db81393b44e28b3bcfaa08d5538f2fd376d683a19d69290",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "NonceGet",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "google.com",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Host",
+                "value": "sugar-backend-dev.eba-paipiqyi.us-east-2.elasticbeanstalk.com",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept-Encoding",
+                "value": "gzip, deflate",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9,es;q=0.8,es-419;q=0.7,fr-CA;q=0.6,fr;q=0.5,ja;q=0.4",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/nonce/0x17b1484aFDDf35A54F0C567AdB7bCf1997ef4d32"
+          }
+        },
+        {
+          "name": "NoncePost",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "http://localhost:5221/api/nonce/0x17b1484aFDDf35A54F0C567AdB7bCf1997ef4d32",
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tokens",
+      "item": [
+        {
+          "name": "TokenCreate",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/token",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"imageUrl\": \"https://assets.coingecko.com/coins/images/279/standard/ethereum.png?1696501628\",\n  \"contractAddress\":\"0x2170Ed0880ac9A755fd29B2688956BD959F933F8\"\n}\n\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TokenGet",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/token/a58621d7-0d56-480c-8c1b-08dc774b9aa2"
+          }
+        },
+        {
+          "name": "TokenGetAll",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/token"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Supervisor",
+      "item": [
+        {
+          "name": "AddWallet",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "google.com",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "http://localhost:5221/api/supervisor",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"address\": \"0x2cbfa271cce515fed6e49b406df4a77ec952a952\",\n  \"tokens\": [\n    \"0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tournaments",
+      "item": [
+        {
+          "name": "TournamenGetAll",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "userId",
+                "value": "B4574807-C1B2-4361-D0F2-08DC597D9F00",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "sessionId",
+                "value": "1d889d",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "xxx-endpoint",
+                "value": "db1209a9fe9fb752d787c45eb1604bea09944a30c2f751d5c78de4d7a3958b8c",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "xxx-wallet",
+                "value": "cf3259e8504db39ae243f83806f45c11879098a2220654b337f0c9990ee00347",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "timestamp",
+                "value": "1712839020884",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "xxx-timestamp",
+                "value": "9fed8a3138c06c707e804ab3eb1e33ab06f31261f4e1224ea5de247f4862209f",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "xxx-headers",
+                "value": "25c9b5bdcb4f1ca542406daf5161d288056dd994a4127bb161983549deff9366",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "xxx-payload",
+                "value": "",
+                "disabled": true,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/tournament",
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TournamenPost",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/tournament",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Tournament Test 3\",\n  \"startdate\": \"2024-06-09T12:00:00.511Z\",\n  \"enddate\": \"2024-07-09T12:00:00.511Z\",\n  \"wallet\":\"0x09b45179169e386ddedcbc607a4ad872055b8557\",\n  \"ImageUrl\":\"https://picsum.photos/seed/picsum/200/300\",\n  \"prices\": [\n    {\n      \"tokenId\": \"ac883953-5e87-4669-0863-08dc76bb11fd\",\n      \"amount\":\"250\" \n    }\n  ]\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "TicketCreate",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/ticket",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"3\",\n    \"TransactionHash\": \"testHash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketCreateByTournament",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "88FCA718-203B-4421-8E03-0F767220B7D9",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/tournament/7f7c0fba-3958-49a3-d785-08dc76bd2569/ticket",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"5\",\n    \"TransactionHash\": \"testHashWallet01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketGet",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/ticket/d3d77baa-fff5-48f3-39ad-08dc76d4f259",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"3\",\n    \"TransactionHash\": \"testHash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketGetAll",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/ticket",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"3\",\n    \"TransactionHash\": \"testHash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketGetByTournament",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/tournament/d3d77baa-fff5-48f3-39ad-08dc76d4f259/ticket",
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketGetByUser",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/user/d3d77baa-fff5-48f3-39ad-08dc76d4f259/ticket",
+            "body": {
+              "mode": "raw",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketUse",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/ticket/d3d77baa-fff5-48f3-39ad-08dc76d4f259",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"3\",\n    \"TransactionHash\": \"testHash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        },
+        {
+          "name": "TicketUseLast",
+          "event": [],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "UserId",
+                "value": "B0D8ACBA-66DD-4CDD-D88B-08DC5953E043",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/ticket",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"ticketAmount\": \"3\",\n    \"TransactionHash\": \"testHash\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "VersusPoints",
+      "item": [
+        {
+          "name": "GetAllPoints",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "google.com",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Referer",
+                "value": "http://localhost:3000",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Host",
+                "value": "sugar-backend-dev.eba-paipiqyi.us-east-2.elasticbeanstalk.com",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "User-Agent",
+                "value": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept",
+                "value": "*/*",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept-Encoding",
+                "value": "gzip, deflate",
+                "disabled": false,
+                "type": "default"
+              },
+              {
+                "key": "Accept-Language",
+                "value": "en-US,en;q=0.9,es;q=0.8,es-419;q=0.7,fr-CA;q=0.6,fr;q=0.5,ja;q=0.4",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/versus"
+          }
+        },
+        {
+          "name": "GetPoints",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/versus/asd"
+          }
+        },
+        {
+          "name": "PostPoints",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Origin",
+                "value": "google.com",
+                "disabled": false,
+                "type": "default"
+              }
+            ],
+            "url": "{{base_url}}/api/versus",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"wallet\": \"test\",\n  \"points\": 1000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "bruno",
+      "event": []
+    },
+    {
+      "name": "Leaderboard",
+      "item": [
+        {
+          "name": "TournamentLeaderboard",
+          "event": [],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{base_url}}/api/tournament/CCCF66DC-1F7A-4206-D932-08DC76BB3229/leaderboard"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Seeding",
+      "item": [
+        {
+          "name": "SeedData",
+          "event": [],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": "{{base_url}}/api/seed?users=100"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}

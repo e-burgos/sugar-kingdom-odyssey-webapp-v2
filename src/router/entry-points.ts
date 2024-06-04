@@ -1,0 +1,10 @@
+export { default as Game } from "@/pages/game";
+export { default as Home } from "@/pages/home";
+export { default as Leaderboard } from "@/pages/leaderboard";
+export { default as LeaderboardDetail } from "@/pages/leaderboard-detail";
+export { default as MobilePage } from "@/pages/mobile-page";
+export { default as Profile } from "@/pages/profile";
+export { default as Staking } from "@/pages/staking";
+export { default as Tournaments } from "@/pages/tournaments";
+export { default as TryGame } from "@/pages/try-game";
+export { default as BuySugar } from "@/pages/buy-sugar";

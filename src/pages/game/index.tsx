@@ -3,22 +3,20 @@ import styles from "./game.module.css";
 import DarkContainer from "../../components/dark-container";
 import { Unity } from "react-unity-webgl";
 import { useXerialWallet } from "../../hooks/useXerialWallet";
-import Paragraph from "../../components/typography/paragraph";
-import ButtonConnect from "../../components/buttons/button-connect";
-import { usePageOrchestrator } from "../../store/usePageOrchestrator";
 import Spinner from "../../components/spinner/Spinner";
 import { useMessageSystem } from "../../hooks/useMessageSystem";
+import { useLocation, useNavigate } from "react-router-dom";
+import { appPaths } from "../../router/RoutesConfig";
 
-interface GameProps {
-  style?: React.CSSProperties;
-}
+interface GameProps {}
 
-const Game: React.FC<GameProps> = ({ style }) => {
+const Game: React.FC<GameProps> = () => {
   const { unity } = useMessageSystem();
   const { unityProvider, isLoaded, handleRemoveUnityInstance } = unity;
-
+  const location = useLocation();
+  const navigate = useNavigate();
+  const currentPage = location.pathname === appPaths.game;
   const { isAuth } = useXerialWallet();
-  const { setCurrentPage } = usePageOrchestrator();
 
   useEffect(() => {
     if (!isAuth) handleRemoveUnityInstance();
@@ -26,30 +24,25 @@ const Game: React.FC<GameProps> = ({ style }) => {
 
   return (
     <DarkContainer
-      style={style}
-      hideGain
-      onClose={() => {
-        setCurrentPage("home");
+      style={{
+        visibility: currentPage ? "visible" : "hidden",
+        height: currentPage ? "100%" : "0px",
       }}
+      hideGain
+      onClose={() => navigate(appPaths.home)}
+      connectWallet={!isLoaded || !isAuth}
     >
       {!isLoaded && isAuth && (
         <div className={styles.container}>
           <Spinner color="#F2AB02" size="normal" />
         </div>
       )}
-      {isAuth ? (
+      {isAuth && (
         <Unity
           id="unity-container"
           className={styles.unityCanvas}
           unityProvider={unityProvider}
         />
-      ) : (
-        <div className={styles.container}>
-          <Paragraph color="#F2AB02" fontWeight="bold" fontSize="40px">
-            Connect your wallet to play
-          </Paragraph>
-          <ButtonConnect size="90px" />
-        </div>
       )}
     </DarkContainer>
   );

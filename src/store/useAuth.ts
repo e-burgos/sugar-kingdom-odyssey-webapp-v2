@@ -11,6 +11,7 @@ export interface IAuthStore {
   inventory: any;
   score: number;
   wallet: string | null;
+  userId: string | null;
   setIsAuth: (value: boolean) => void;
   setUserData: (value: User | null) => void;
   setUserBalance: (value: string | null) => void;
@@ -18,6 +19,7 @@ export interface IAuthStore {
   setInventory: (value: any) => void;
   setScore: (value: number) => void;
   setWallet: (value: string | null) => void;
+  setUserId: (value: string | null) => void;
 }
 
 export const useAuth = create<IAuthStore>((set) => {
@@ -25,6 +27,7 @@ export const useAuth = create<IAuthStore>((set) => {
   const balance: string | null = storage.get("balance");
   const userData: User | null = storage.get("user-data");
   const wallet: string | null = storage.get("wallet");
+  const userId = "03dcf3e0-1833-4c0e-8dc7-30f22b5cada1";
   return {
     isAuth: xerialStorage ? true : false,
     userData: userData || null,
@@ -33,6 +36,7 @@ export const useAuth = create<IAuthStore>((set) => {
     inventory: null,
     score: 0,
     wallet: wallet || null,
+    userId: userId,
     setIsAuth: (value) => set({ isAuth: value }),
     setUserData: (value) => {
       storage.set("user-data", value);
@@ -50,6 +54,9 @@ export const useAuth = create<IAuthStore>((set) => {
     setWallet: (value) => {
       storage.set("wallet", value);
       set({ wallet: value });
+    },
+    setUserId: (value) => {
+      set({ userId: value });
     },
   };
 });

@@ -4,14 +4,15 @@ import ButtonImage from "../../components/buttons/button-image";
 import TournamentImg from "../../assets/images/buttons/tournamentMode.svg";
 import TournamentHImg from "../../assets/images/buttons/tournamentModeH.svg";
 import Tournament1v1Img from "../../assets/images/buttons/tournament1v1Mode.svg";
-import { usePageOrchestrator } from "../../store/usePageOrchestrator";
+import { useNavigate } from "react-router-dom";
+import { appPaths } from "../../router/RoutesConfig";
 
 interface HomeProps {
   style?: React.CSSProperties;
 }
 
 const Home: React.FC<HomeProps> = ({ style }) => {
-  const { setCurrentPage } = usePageOrchestrator();
+  const navigate = useNavigate();
   return (
     <div style={style} className={styles.buttons}>
       <div className={styles.tourButtons}>
@@ -23,7 +24,7 @@ const Home: React.FC<HomeProps> = ({ style }) => {
           style={{
             marginTop: "10px",
           }}
-          onClick={() => setCurrentPage("tournaments")}
+          onClick={() => navigate(appPaths.tournaments)}
         />
         <ButtonImage
           img={Tournament1v1Img}

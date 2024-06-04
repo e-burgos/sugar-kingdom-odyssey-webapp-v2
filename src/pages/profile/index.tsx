@@ -8,7 +8,7 @@ interface ProfileProps {
 
 const Profile: React.FC<ProfileProps> = ({ style }) => {
   return (
-    <DarkContainer style={style} label="Profile" hideGain noAvailable>
+    <DarkContainer style={style} label="Profile" hideGain connectWallet>
       <div className={styles.wrapper}></div>
     </DarkContainer>
   );

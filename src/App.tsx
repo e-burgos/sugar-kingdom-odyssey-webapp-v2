@@ -1,40 +1,32 @@
-import Layout from "./components/common/layout";
-import Home from "./pages/home";
-import MobilePage from "./pages/mobile-page";
-import { useIsMobile } from "./hooks/useIsMobile";
-import { usePageOrchestrator } from "./store/usePageOrchestrator";
-import Tournaments from "./pages/tournaments";
-import Leaderboard from "./pages/leaderboard";
-import Staking from "./pages/staking";
-import Game from "./pages/game";
-import Profile from "./pages/profile";
+import AppRoutes from "./router/AppRoutes";
 import { useAuth } from "./store/useAuth";
 import { useCallback, useEffect, useState } from "react";
 import { useIdleTimer } from "react-idle-timer";
 import { useXerialWallet } from "./hooks/useXerialWallet";
+import { appPaths, RoutesConfig } from "./router/RoutesConfig";
+import { useNavigate } from "react-router-dom";
 
 function App() {
-  const { isAuth } = useAuth();
-  const { currentPage, setCurrentPage } = usePageOrchestrator();
-  const { isMobile } = useIsMobile();
+  // hooks
+  const navigate = useNavigate();
+  const { isAuth, userData } = useAuth();
   const { handleLogout } = useXerialWallet();
+
+  console.log(userData);
+
+  // state
+  const [userInactive, setUserInactive] = useState<boolean>(false);
 
   const handleReload = useCallback(() => {
     if (window.performance) {
       if (window.performance.navigation.type === 1) {
-        setCurrentPage("game");
+        navigate(appPaths.game);
       } else {
-        setCurrentPage("home");
+        navigate(appPaths.home);
       }
     }
-  }, [setCurrentPage]);
+  }, [navigate]);
 
-  useEffect(() => {
-    if (isAuth) handleReload();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const [userInactive, setUserInactive] = useState<boolean>(false);
   useIdleTimer({
     timeout: 1000 * 60 * 5,
     onIdle: (event) => {
@@ -48,33 +40,18 @@ function App() {
   });
 
   useEffect(() => {
+    if (isAuth) handleReload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (userInactive && isAuth) {
       handleLogout();
       setUserInactive(false);
     }
   }, [handleLogout, isAuth, userInactive]);
 
-  return (
-    <>
-      {isMobile ? (
-        <MobilePage />
-      ) : (
-        <Layout header menuBar>
-          {currentPage === "home" && <Home />}
-          {currentPage === "tournaments" && <Tournaments />}
-          {currentPage === "leaderboard" && <Leaderboard />}
-          {currentPage === "staking" && <Staking />}
-          {currentPage === "profile" && <Profile />}
-          <Game
-            style={{
-              visibility: currentPage === "game" ? "visible" : "hidden",
-              height: currentPage === "game" ? "100%" : "0px",
-            }}
-          />
-        </Layout>
-      )}
-    </>
-  );
+  return <AppRoutes routesConfig={RoutesConfig} />;
 }
 
 export default App;

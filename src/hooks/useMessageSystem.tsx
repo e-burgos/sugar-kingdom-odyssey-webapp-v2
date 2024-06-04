@@ -2,12 +2,14 @@ import { useCallback, useEffect, useState } from "react";
 import { useXerialWallet } from "./useXerialWallet";
 import { useUnityProvider } from "./useUnityProvider";
 import { ReactUnityEventParameter } from "react-unity-webgl/distribution/types/react-unity-event-parameters";
-import { usePageOrchestrator } from "../store/usePageOrchestrator";
-import { PostScore } from "../api/callbacks/post-score";
+import { PostScore } from "../api/queries/versus/post-score";
+import { useLocation } from "react-router-dom";
+import { appPaths } from "../router/RoutesConfig";
 
 export function useMessageSystem() {
   const { wallet } = useXerialWallet();
-  const { currentPage } = usePageOrchestrator();
+  const location = useLocation();
+  const currentPage = location.pathname.split("/")[1];
   const {
     unityConfigParams,
     unityProvider,
@@ -65,7 +67,7 @@ export function useMessageSystem() {
 
   // Send audio
   useEffect(() => {
-    if (currentPage === "game") {
+    if (currentPage === appPaths.game) {
       if (isLoaded) handleSendAudio(true);
     } else if (isLoaded) handleSendAudio(false);
   }, [currentPage, handleSendAudio, isLoaded]);

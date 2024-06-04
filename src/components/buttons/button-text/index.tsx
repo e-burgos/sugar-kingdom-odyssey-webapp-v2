@@ -1,11 +1,12 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, ReactNode, useState } from "react";
 import styles from "./button-text.module.css";
 import Paragraph from "../../typography/paragraph";
-import ButtonBg from "../../../assets/images/buttons/buttonBg.svg";
-import ButtonBgH from "../../../assets/images/buttons/buttonBgH.svg";
+import ButtonBg from "../../../assets/images/buttons/buttonBgH.svg";
+import ButtonBgH from "../../../assets/images/buttons/buttonBg.svg";
 
 interface ButtonTextProps {
-  label: string;
+  label?: string;
+  children?: ReactNode;
   subLabel?: string;
   img?: React.ImgHTMLAttributes<HTMLImageElement>["src"] | string;
   imgHover?: React.ImgHTMLAttributes<HTMLImageElement>["src"] | string;
@@ -20,6 +21,7 @@ interface ButtonTextProps {
 const ButtonText: FunctionComponent<ButtonTextProps> = ({
   label,
   subLabel,
+  children,
   img,
   imgHover,
   imgIcon,
@@ -85,9 +87,12 @@ const ButtonText: FunctionComponent<ButtonTextProps> = ({
           />
         )}
 
-        <Paragraph htmlTag="p" fontSize="18px" color="white">
-          {label}
-        </Paragraph>
+        {label && (
+          <Paragraph htmlTag="p" fontSize="18px" color="white">
+            {label}
+          </Paragraph>
+        )}
+        {children && children}
         {subLabel && (
           <Paragraph htmlTag="p" fontSize="10px" color="white">
             {subLabel}

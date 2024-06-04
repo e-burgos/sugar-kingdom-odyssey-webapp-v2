@@ -5,7 +5,7 @@ import ButtonImg from "../../../assets/images/buttons/largeButtonBg.svg";
 import ButtonImgH from "../../../assets/images/buttons/largeButtonBgH.svg";
 import Avatar from "../../../assets/images/icons/sugarAvatar.svg";
 import Paragraph from "../../typography/paragraph";
-import { GetScore } from "../../../api/callbacks/get-score";
+import { GetScore } from "../../../api/queries/versus/get-score";
 
 interface ButtonUserProps {
   className?: string;
