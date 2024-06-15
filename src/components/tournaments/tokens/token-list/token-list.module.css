@@ -1,0 +1,37 @@
+.tokens {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.tokenList {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.token {
+  border: 1px solid rgba(110, 203, 27, 1);
+  background-color: #000000;
+  border-radius: 50%;
+  padding: 5px;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.emptyToken {
+  margin: 0;
+  padding: 0;
+}
+
+.tooltip {
+  position: fixed;
+  cursor: pointer;
+  z-index: 999;
+}

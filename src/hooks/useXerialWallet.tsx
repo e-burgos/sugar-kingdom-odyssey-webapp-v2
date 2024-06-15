@@ -72,8 +72,6 @@ export function useXerialWallet() {
   const handleUser = useCallback(async () => {
     try {
       const user = await xerial.user();
-      console.log("xerial", user);
-
       setUserData(user);
       setIsAuth(true);
       setWallet(user.wallets[0].address);

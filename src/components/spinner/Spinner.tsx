@@ -9,7 +9,7 @@ interface Props {
 const Spinner: FunctionComponent<Props> = ({ size, color }) => {
   return (
     <div
-      style={{ borderLeftColor: color }}
+      style={{ borderLeftColor: color || "rgba(150, 233, 237, 1)" }}
       className={`${styles.spinner} ${
         size === "small" ? styles.small : styles.normal
       }`}

@@ -14,6 +14,10 @@ import {
 import styles from "./styles/datatable.module.css";
 import { usePaginationStore } from "@/store/usePagination";
 import Pagination from "./components/Pagination";
+import TableBg from "@/assets/images/leaderboard/tableBg1.png";
+
+const TableBgImg = new Image();
+TableBgImg.src = TableBg;
 
 interface DataTableProps<TData> {
   columns: ColumnDef<TData, any>[];
@@ -50,7 +54,12 @@ const DataTable: React.FC<DataTableProps<TData>> = ({
 
   return (
     <>
-      <div className={styles.tableContainer}>
+      <div
+        style={{
+          backgroundImage: `url(${TableBgImg.src})`,
+        }}
+        className={styles.tableContainer}
+      >
         <table className={styles.table}>
           <thead className={styles.thead}>
             {table.getHeaderGroups().map((headerGroup) => (

@@ -23,6 +23,26 @@ export interface ITournamentColor {
   name: string;
 }
 
+export interface IRemainingTime {
+  ticks: number;
+  days: number;
+  hours: number;
+  milliseconds: number;
+  microseconds: number;
+  nanoseconds: number;
+  minutes: number;
+  seconds: number;
+  totalDays: number;
+  totalHours: number;
+  totalMilliseconds: number;
+  totalMicroseconds: number;
+  totalNanoseconds: number;
+  totalMinutes: number;
+  totalSeconds: number;
+}
+
+export type TournamentStatus = "previous" | "now" | "future";
+
 export interface ITournamentResponse {
   id: string;
   validationErrors: string;
@@ -36,6 +56,9 @@ export interface ITournamentResponse {
   prices: ITournamentPrice[];
   status: number;
   contestantCount: number;
+  pricePool: number;
+  remainingTime: string;
+  statusFlag: TournamentStatus;
 }
 
 export interface IPage {

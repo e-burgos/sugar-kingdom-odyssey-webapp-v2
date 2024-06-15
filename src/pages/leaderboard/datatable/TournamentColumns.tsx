@@ -1,17 +1,22 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import { ITournamentResponse } from "@/api/endpoints/tournament/types";
-import TournamentButton from "./LeaderboardDetailButton";
+import TournamentButton from "@/components/leaderboard/LeaderboardDetailButton";
 import CellInfo from "@/components/datatable/components/CellInfo";
 import HeaderInfo from "@/components/datatable/components/HeaderInfo";
+import {
+  formatToMoney,
+  formatUTCDate,
+  numberWithCommas,
+} from "@/utils/numberUtils";
 
 export type TData = {
   tournamentName: string;
-  price: number;
-  contestants: number;
+  price: string;
+  contestants: string;
   startDate: string;
   endDate: string;
   status: string;
-  leaderboard: string;
+  leaderboard: ITournamentResponse;
 };
 
 export const mapper = (data: ITournamentResponse[]) => {
@@ -19,12 +24,17 @@ export const mapper = (data: ITournamentResponse[]) => {
   data.map((row) =>
     filterData.push({
       tournamentName: row.name,
-      price: Number(row.prices.map((price) => price.amount)),
-      contestants: row.contestantCount,
-      startDate: new Date(row.startDate).toLocaleDateString(),
-      endDate: new Date(row.endDate).toLocaleDateString(),
-      status: row.status === 0 ? "Paid" : "Free",
-      leaderboard: row.id,
+      price: `$${formatToMoney(Number(row.pricePool), 2)}`,
+      contestants: `${numberWithCommas(row.contestantCount)}`,
+      startDate: formatUTCDate(row.startDate),
+      endDate: formatUTCDate(row.endDate),
+      status:
+        row.status === 0
+          ? "Open"
+          : row.status === 1
+          ? "Pending Payment"
+          : "Paid",
+      leaderboard: row,
     })
   );
   return filterData;
@@ -47,7 +57,7 @@ export const columns = [
   }),
   columnHelper.accessor((row) => row.contestants, {
     id: "contestants",
-    cell: (info) => <CellInfo info={info.getValue().toString()} />,
+    cell: (info) => <CellInfo info={info.getValue()} />,
     header: () => <HeaderInfo title="Number of Contestants" />,
   }),
   columnHelper.accessor((row) => row.startDate, {
@@ -67,7 +77,7 @@ export const columns = [
   }),
   columnHelper.accessor((row) => row.leaderboard, {
     id: "leaderboard",
-    cell: (info) => <TournamentButton info={info.getValue().toString()} />,
+    cell: (info) => <TournamentButton data={info.getValue()} />,
     header: () => <HeaderInfo title="Leaderboard" />,
   }),
 ];

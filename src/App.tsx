@@ -9,10 +9,8 @@ import { useNavigate } from "react-router-dom";
 function App() {
   // hooks
   const navigate = useNavigate();
-  const { isAuth, userData } = useAuth();
+  const { isAuth } = useAuth();
   const { handleLogout } = useXerialWallet();
-
-  console.log(userData);
 
   // state
   const [userInactive, setUserInactive] = useState<boolean>(false);

@@ -21,8 +21,11 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ style }) => {
 
   return (
     <DarkContainer style={style} label={"Leaderboard"} hideGain>
-      <div className={styles.wrapper}>
-        {!isSuccess && <Spinner color="rgba(150, 233, 237, 1)" />}
+      <div
+        className={styles.wrapper}
+        style={{ justifyContent: !isSuccess ? "center" : "flex-start" }}
+      >
+        {!isSuccess && <Spinner />}
         {isSuccess && data?.data.length && (
           <DataTable data={initialData} columns={columns} showPagination />
         )}

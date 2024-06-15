@@ -1,33 +1,33 @@
 import React, { useState } from "react";
 import styles from "./buy-container.module.css";
-import BlueContainer from "../../../assets/images/tournaments/blue.svg";
-import OrangeContainer from "../../../assets/images/tournaments/orange.svg";
-import CyanContainer from "../../../assets/images/tournaments/cyan.svg";
+import BlueContainer from "@/assets/images/tournaments/blue.svg";
+import OrangeContainer from "@/assets/images/tournaments/orange.svg";
+import CyanContainer from "@/assets/images/tournaments/cyan.svg";
 
-import PlayButton from "../../../assets/images/tournaments/playButton.svg";
-import PlayButtonH from "../../../assets/images/tournaments/playButtonH.svg";
+import PlayButton from "@/assets/images/tournaments/playButton.svg";
+import PlayButtonH from "@/assets/images/tournaments/playButtonH.svg";
 
-import CyanBoardButton from "../../../assets/images/tournaments/cyanBoardButton.svg";
-import BlueBoardButton from "../../../assets/images/tournaments/blueBoardButton.svg";
-import OrangeBoardButton from "../../../assets/images/tournaments/orangeBoardButton.svg";
+import CyanBoardButton from "@/assets/images/tournaments/cyanBoardButton.svg";
+import BlueBoardButton from "@/assets/images/tournaments/blueBoardButton.svg";
+import OrangeBoardButton from "@/assets/images/tournaments/orangeBoardButton.svg";
 
-import CyanButton from "../../../assets/images/tournaments/cyanButton.svg";
-import OrangeButton from "../../../assets/images/tournaments/orangeButton.svg";
-import BlueButton from "../../../assets/images/tournaments/blueButton.svg";
-import BlueTokens from "../../../assets/images/tournaments/blueTokens.svg";
+import CyanButton from "@/assets/images/tournaments/cyanButton.svg";
+import OrangeButton from "@/assets/images/tournaments/orangeButton.svg";
+import BlueButton from "@/assets/images/tournaments/blueButton.svg";
+import BlueTokens from "@/assets/images/tournaments/blueTokens.svg";
 
-import BlueCharacter from "../../../assets/images/tournaments/blueCharacter.svg";
-import OrangeCharacter from "../../../assets/images/tournaments/orangeCharacter.svg";
-import CyanCharacter from "../../../assets/images/tournaments/cyanCharacter.svg";
+import BlueCharacter from "@/assets/images/tournaments/blueCharacter.svg";
+import OrangeCharacter from "@/assets/images/tournaments/orangeCharacter.svg";
+import CyanCharacter from "@/assets/images/tournaments/cyanCharacter.svg";
 
-import X1 from "../../../assets/images/tournaments/x1.svg";
-import BlueTooltipTokens from "../../../assets/images/tournaments/blueTooltipTokens.svg";
-import OrangeTooltipTokens from "../../../assets/images/tournaments/orangeTooltipTokens.svg";
-import CyanTooltipTokens from "../../../assets/images/tournaments/cyanTooltipTokens.svg";
+import X1 from "@/assets/images/tournaments/x1.svg";
+import BlueTooltipTokens from "@/assets/images/tournaments/blueTooltipTokens.svg";
+import OrangeTooltipTokens from "@/assets/images/tournaments/orangeTooltipTokens.svg";
+import CyanTooltipTokens from "@/assets/images/tournaments/cyanTooltipTokens.svg";
 
-import OrangePlus from "../../../assets/images/icons/orangePlus.svg";
-import GreenPlus from "../../../assets/images/icons/greenPlus.svg";
-import PinkPlus from "../../../assets/images/icons/pinkPlus.svg";
+import OrangePlus from "@/assets/images/icons/orangePlus.svg";
+import GreenPlus from "@/assets/images/icons/greenPlus.svg";
+import PinkPlus from "@/assets/images/icons/pinkPlus.svg";
 
 import ButtonImage from "../../buttons/button-image";
 import Paragraph from "../../typography/paragraph";

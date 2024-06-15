@@ -3,6 +3,8 @@ export interface IToken {
   validationErrors: string;
   contractAddress: string;
   imageUrl: string;
+  symbol: string;
+  name: string;
 }
 
 export interface ITokenPostPayload {

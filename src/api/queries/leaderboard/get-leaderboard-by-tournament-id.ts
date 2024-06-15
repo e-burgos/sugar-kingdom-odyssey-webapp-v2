@@ -18,5 +18,6 @@ export function GetLeaderboardByTournamentId(tournamentId: string) {
     queryFn: handleGetLeaderboardByTournamentId,
     enabled: !!tournamentId,
     refetchOnWindowFocus: false,
+    staleTime: 1000 * 60 * 5,
   });
 }

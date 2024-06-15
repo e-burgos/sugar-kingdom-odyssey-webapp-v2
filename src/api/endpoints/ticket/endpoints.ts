@@ -25,7 +25,7 @@ export const ticketPatch = (
 
 export const ticketGetByUser = (
   userId: string,
-  responseType?: ITicketResponse
+  responseType?: ITicketResponse[]
 ) => {
   return {
     endpoint: `/api/user/${userId}/ticket`,
