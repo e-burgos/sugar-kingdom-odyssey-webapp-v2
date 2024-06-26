@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./staking.module.css";
-import DarkContainer from "../../components/dark-container";
+import DarkContainer from "@/components/dark-container";
 
 interface StakingProps {
   style?: React.CSSProperties;

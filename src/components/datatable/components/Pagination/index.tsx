@@ -1,11 +1,11 @@
 import React from "react";
 import { Table } from "@tanstack/react-table";
 import styles from "./pagination.module.css";
-import { TData } from "../../../../pages/leaderboard/Datatable/TournamentColumns";
-import ButtonLeft from "../../../buttons/button-left";
-import ButtonRight from "../../../buttons/button-right";
-import ButtonText from "../../../buttons/button-text";
-import Paragraph from "../../../typography/paragraph";
+import { TData } from "@/pages/leaderboard/Datatable/TournamentColumns";
+import ButtonLeft from "@/components/buttons/button-left";
+import ButtonRight from "@/components/buttons/button-right";
+import ButtonText from "@/components/buttons/button-text";
+import Paragraph from "@/components/typography/paragraph";
 
 interface PaginationProps {
   table: Table<TData>;

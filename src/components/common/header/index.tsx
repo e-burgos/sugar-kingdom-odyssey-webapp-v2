@@ -1,14 +1,14 @@
 import { FunctionComponent } from "react";
 import styles from "./header.module.css";
-import BgImage from "../../../assets/images/header/bg.svg";
-import Paragraph from "../../typography/paragraph";
-import ButtonBalance from "../../buttons/button-balance";
-import TextTransition from "../../typography/text-transition";
-import ButtonConnect from "../../buttons/button-connect";
-import ButtonUser from "../../buttons/button-user";
-import { useAuth } from "../../../store/useAuth";
+import BgImage from "@/assets/images/header/bg.svg";
+import Paragraph from "@/components/typography/paragraph";
+import ButtonBalance from "@/components/buttons/button-balance";
+import TextTransition from "@/components/typography/text-transition";
+import ButtonConnect from "@/components/buttons/button-connect";
+import ButtonUser from "@/components/buttons/button-user";
 import { useNavigate } from "react-router-dom";
-import { appPaths } from "../../../router/RoutesConfig";
+import { useAuth } from "@/store/useAuth";
+import { appPaths } from "@/router/RoutesConfig";
 
 interface HeaderProps {}
 

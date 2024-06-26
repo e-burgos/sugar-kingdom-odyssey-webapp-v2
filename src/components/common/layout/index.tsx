@@ -1,9 +1,9 @@
 import { FunctionComponent, ReactNode } from "react";
 import styles from "./layout.module.css";
+import BgImage from "@/assets/images/home/bg.svg";
 import Header from "../header";
 import MenuBar from "../menu-bar";
-import Partners from "../../partners";
-import BgImage from "../../../assets/images/home/bg.svg";
+import Partners from "@/components/partners";
 
 interface LayoutProps {
   children: ReactNode;

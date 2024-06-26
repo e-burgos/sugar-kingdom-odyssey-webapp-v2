@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
-import { ITournamentResponse } from "../../endpoints/tournament/types";
-import { tournamentGetById } from "../../endpoints/tournament/endpoints";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";
+import { tournamentGetById } from "@/api/endpoints/tournament/endpoints";
+import { ITournamentResponse } from "@/api/endpoints/tournament/types";
 
 export function GetTournamentById(tournamentId: string) {
   const { sessionId, userId, wallet } = useAuth();

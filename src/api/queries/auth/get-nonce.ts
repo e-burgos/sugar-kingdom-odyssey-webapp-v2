@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosClient from "../../config/axios-client";
 import { useAuth } from "@/store/useAuth";
 import { nonceGet } from "@/api/endpoints/nonce/endpoints";
 import { INonceResponse } from "@/api/endpoints/nonce/types";
+import axiosClient from "@/api/config/axios-client";
 
 export function GetNonce() {
   const { wallet } = useAuth();

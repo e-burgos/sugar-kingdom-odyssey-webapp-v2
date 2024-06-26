@@ -1,8 +1,8 @@
 import { FunctionComponent, ReactNode, useState } from "react";
 import styles from "./button-text.module.css";
-import Paragraph from "../../typography/paragraph";
-import ButtonBg from "../../../assets/images/buttons/buttonBgH.svg";
-import ButtonBgH from "../../../assets/images/buttons/buttonBg.svg";
+import ButtonBg from "@/assets/images/buttons/buttonBgH.svg";
+import ButtonBgH from "@/assets/images/buttons/buttonBg.svg";
+import Paragraph from "@/components/typography/paragraph";
 
 interface ButtonTextProps {
   label?: string;

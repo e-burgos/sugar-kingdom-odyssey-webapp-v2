@@ -1,10 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { GetScore } from "./get-score";
-import { IVersusResponse } from "../../endpoints/versus/types";
-import { versusPost } from "../../endpoints/versus/endpoints";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";
+import { versusPost } from "@/api/endpoints/versus/endpoints";
+import { IVersusResponse } from "@/api/endpoints/versus/types";
 
 export function PostScore(points: number) {
   const getScore = GetScore();

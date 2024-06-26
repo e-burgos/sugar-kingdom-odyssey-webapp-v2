@@ -1,6 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { userPatchUsername } from "@/api/endpoints/user/endpoints";
 import { IUserResponse } from "@/api/endpoints/user/types";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";

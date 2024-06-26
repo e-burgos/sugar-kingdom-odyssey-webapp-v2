@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./styles.module.css";
-import ButtonImage from "../../buttons/button-image";
-import Paragraph from "../../typography/paragraph";
+import ButtonImage from "@/components/buttons/button-image";
+import Paragraph from "@/components/typography/paragraph";
 import { TournamentAction } from "./OrchestratorCard";
 import { useNavigate } from "react-router-dom";
 

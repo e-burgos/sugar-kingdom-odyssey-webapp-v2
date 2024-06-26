@@ -29,8 +29,8 @@ import OrangePlus from "@/assets/images/icons/orangePlus.svg";
 import GreenPlus from "@/assets/images/icons/greenPlus.svg";
 import PinkPlus from "@/assets/images/icons/pinkPlus.svg";
 
-import ButtonImage from "../../buttons/button-image";
-import Paragraph from "../../typography/paragraph";
+import ButtonImage from "@/components/buttons/button-image";
+import Paragraph from "@/components/typography/paragraph";
 
 const BlueContainerImg = new Image();
 BlueContainerImg.src = BlueContainer;

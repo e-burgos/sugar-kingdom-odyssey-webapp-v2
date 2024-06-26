@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styles from "./try-game.module.css";
-import DarkContainer from "../../components/dark-container";
+import DarkContainer from "@/components/dark-container";
 import { useAuth } from "@/store/useAuth";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMessageSystem } from "@/hooks/useMessageSystem";

@@ -1,7 +1,7 @@
 import React from "react";
 import ButtonImage from "../button-image";
-import Left from "../../../assets/images/buttons/leftButton.svg";
-import LeftH from "../../../assets/images/buttons/leftButtonH.svg";
+import Left from "@/assets/images/buttons/leftButton.svg";
+import LeftH from "@/assets/images/buttons/leftButtonH.svg";
 
 interface ButtonRightProps {
   onClick?: () => void;

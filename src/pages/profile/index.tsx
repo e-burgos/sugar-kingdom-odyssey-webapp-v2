@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./profile.module.css";
-import DarkContainer from "../../components/dark-container";
+import DarkContainer from "@/components/dark-container";
 import { GetHistoryByUserId } from "@/api/queries/user/get-history-by-user-id";
 import EditProfile from "./EditProfile";
 import { columns, mapper } from "./Datatable/ProfileColumns";

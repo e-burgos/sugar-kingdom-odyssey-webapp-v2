@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
-import { ITournamentGetAllPaginatedResponse } from "../../endpoints/tournament/types";
-import { tournamentGetAllPaginated } from "../../endpoints/tournament/endpoints";
-import { usePaginationStore } from "../../../store/usePagination";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";
+import { usePaginationStore } from "@/store/usePagination";
+import { tournamentGetAllPaginated } from "@/api/endpoints/tournament/endpoints";
+import { ITournamentGetAllPaginatedResponse } from "@/api/endpoints/tournament/types";
 
 export function GetTournaments(page: number, pageSize: number) {
   const { setTotalPages, setTotalRecords } = usePaginationStore();

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./game.module.css";
-import DarkContainer from "../../components/dark-container";
+import DarkContainer from "@/components/dark-container";
 import { Unity } from "react-unity-webgl";
-import Spinner from "../../components/spinner/Spinner";
-import { useMessageSystem } from "../../hooks/useMessageSystem";
+import Spinner from "@/components/spinner/Spinner";
 import { useLocation, useNavigate } from "react-router-dom";
-import { appPaths } from "../../router/RoutesConfig";
 import { useAuth } from "@/store/useAuth";
+import { appPaths } from "@/router/RoutesConfig";
+import { useMessageSystem } from "@/hooks/useMessageSystem";
 
 interface GameProps {}
 

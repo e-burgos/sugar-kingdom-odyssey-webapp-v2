@@ -7,7 +7,7 @@ import {
   formatUTCDate,
   numberWithCommas,
 } from "@/utils/numberUtils";
-import MedalButton from "../../../components/leaderboard/MedalButton";
+import MedalButton from "@/components/leaderboard/MedalButton";
 import { ITournamentResponse } from "@/api/endpoints/tournament/types";
 import { Fragment } from "react";
 import { handleRemainingTime } from "@/utils/functions";

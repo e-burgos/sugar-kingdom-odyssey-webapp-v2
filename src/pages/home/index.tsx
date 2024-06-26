@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./home.module.css";
-import ButtonImage from "../../components/buttons/button-image";
-import TournamentImg from "../../assets/images/buttons/tournamentMode.svg";
-import TournamentHImg from "../../assets/images/buttons/tournamentModeH.svg";
-import Tournament1v1Img from "../../assets/images/buttons/tournament1v1Mode.svg";
+import ButtonImage from "@/components/buttons/button-image";
+import TournamentImg from "@/assets/images/buttons/tournamentMode.svg";
+import TournamentHImg from "@/assets/images/buttons/tournamentModeH.svg";
+import Tournament1v1Img from "@/assets/images/buttons/tournament1v1Mode.svg";
 import { useNavigate } from "react-router-dom";
-import { appPaths } from "../../router/RoutesConfig";
+import { appPaths } from "@/router/RoutesConfig";
 
 interface HomeProps {
   style?: React.CSSProperties;

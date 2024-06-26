@@ -1,8 +1,8 @@
 import { FunctionComponent, useState } from "react";
 import styles from "./button-image.module.css";
-import NoAvailable from "../../../assets/images/utils/no-available.svg";
-import { handleLink } from "../../../utils/functions";
-import Paragraph, { ParagraphProps } from "../../typography/paragraph";
+import NoAvailable from "@/assets/images/utils/no-available.svg";
+import Paragraph, { ParagraphProps } from "@/components/typography/paragraph";
+import { handleLink } from "@/utils/functions";
 
 interface ButtonImageProps {
   img: React.ImgHTMLAttributes<HTMLImageElement>["src"] | string;

@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./button-user.module.css";
 import { useAuth } from "@/store/useAuth";
-import Paragraph from "../../typography/paragraph";
 import { GetScore } from "@/api/queries/versus/get-score";
 import { GetUserById } from "@/api/queries/user/get-user-by-id";
 
@@ -9,6 +8,7 @@ import { GetUserById } from "@/api/queries/user/get-user-by-id";
 import ButtonImg from "@/assets/images/buttons/largeButtonBg.svg";
 import ButtonImgH from "@/assets/images/buttons/largeButtonBgH.svg";
 import Avatar from "@/assets/images/profile/emptyAvatar.svg";
+import Paragraph from "@/components/typography/paragraph";
 
 interface ButtonUserProps {
   className?: string;

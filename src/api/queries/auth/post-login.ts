@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosClient from "../../config/axios-client";
+import axiosClient from "@/api/config/axios-client";
 import { useAuth } from "@/store/useAuth";
 import { authLogin } from "@/api/endpoints/auth/endpoints";
 import { ILoginPostPayload, ILoginResponse } from "@/api/endpoints/auth/types";

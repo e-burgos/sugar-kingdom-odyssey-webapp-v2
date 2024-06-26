@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
-import { IVersusByWalletResponse } from "../../endpoints/versus/types";
-import { versusGetByWallet } from "../../endpoints/versus/endpoints";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";
+import { versusGetByWallet } from "@/api/endpoints/versus/endpoints";
+import { IVersusByWalletResponse } from "@/api/endpoints/versus/types";
 
 export function GetScore() {
   const { sessionId, userId, wallet } = useAuth();

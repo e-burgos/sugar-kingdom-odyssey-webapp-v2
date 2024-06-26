@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { historyGetByUserId } from "@/api/endpoints/history/endpoints";
 import { HistoryFilterType, IHistory } from "@/api/endpoints/history/types";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";

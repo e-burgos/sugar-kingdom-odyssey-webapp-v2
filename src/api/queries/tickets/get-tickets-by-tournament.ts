@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import axiosClient from "../../config/axios-client";
+import axiosClient from "@/api/config/axios-client";
 import { ticketGetByTournament } from "@/api/endpoints/ticket/endpoints";
 import { ITicketResponse } from "@/api/endpoints/ticket/types";
 import { useAuth } from "@/store/useAuth";

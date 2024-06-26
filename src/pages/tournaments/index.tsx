@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styles from "./tournaments.module.css";
-import DarkContainer from "../../components/dark-container";
+import DarkContainer from "@/components/dark-container";
 import { usePaginationStore } from "@/store/usePagination";
 import { GetTournaments } from "@/api/queries/tournament/get-tournaments";
 import PreviusCard from "@/components/tournaments/cards/PreviusCard";

@@ -1,9 +1,9 @@
-import telegramDisabled from "../assets/images/social/telegram.svg";
-import telegramEnabled from "../assets/images/social/telegramH.svg";
-import discordDisabled from "../assets/images/social/discord.svg";
-import discordEnabled from "../assets/images/social/discordH.svg";
-import twDisabled from "../assets/images/social/x.svg";
-import twEnabled from "../assets/images/social/xH.svg";
+import telegramDisabled from "@/assets/images/social/telegram.svg";
+import telegramEnabled from "@/assets/images/social/telegramH.svg";
+import discordDisabled from "@/assets/images/social/discord.svg";
+import discordEnabled from "@/assets/images/social/discordH.svg";
+import twDisabled from "@/assets/images/social/x.svg";
+import twEnabled from "@/assets/images/social/xH.svg";
 
 const tgdImg = new Image();
 tgdImg.src = telegramDisabled;

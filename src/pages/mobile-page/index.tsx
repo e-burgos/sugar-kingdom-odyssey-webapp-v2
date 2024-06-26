@@ -1,20 +1,20 @@
 import React from "react";
 import styles from "./mobile-page.module.css";
-import BgImage from "../../assets/images/mobile/bg.svg";
-import HeaderImage from "../../assets/images/mobile/header.svg";
-import FooterImage from "../../assets/images/mobile/footer.svg";
-import ButtonImage from "../../components/buttons/button-image";
-import Title from "../../assets/images/mobile/title.svg";
-import Container from "../../assets/images/mobile/container.svg";
+import BgImage from "@/assets/images/mobile/bg.svg";
+import HeaderImage from "@/assets/images/mobile/header.svg";
+import FooterImage from "@/assets/images/mobile/footer.svg";
+import ButtonImage from "@/components/buttons/button-image";
+import Title from "@/assets/images/mobile/title.svg";
+import Container from "@/assets/images/mobile/container.svg";
 
-import Discord from "../../assets/images/social/discord.svg";
-import DiscordH from "../../assets/images/social/discordH.svg";
-import Telegram from "../../assets/images/social/telegram.svg";
-import TelegramH from "../../assets/images/social/telegramH.svg";
-import Twitter from "../../assets/images/social/x.svg";
-import TwitterH from "../../assets/images/social/xH.svg";
-import Paragraph from "../../components/typography/paragraph";
-import { linksData } from "../../data/links";
+import Discord from "@/assets/images/social/discord.svg";
+import DiscordH from "@/assets/images/social/discordH.svg";
+import Telegram from "@/assets/images/social/telegram.svg";
+import TelegramH from "@/assets/images/social/telegramH.svg";
+import Twitter from "@/assets/images/social/x.svg";
+import TwitterH from "@/assets/images/social/xH.svg";
+import Paragraph from "@/components/typography/paragraph";
+import { linksData } from "@/data/links";
 
 const bgImg = new Image();
 bgImg.src = BgImage;

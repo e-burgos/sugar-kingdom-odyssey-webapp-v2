@@ -1,7 +1,7 @@
 import React from "react";
+import Close from "@/assets/images/buttons/close.svg";
+import CloseH from "@/assets/images/buttons/closeH.svg";
 import ButtonImage from "../button-image";
-import Close from "../../../assets/images/buttons/close.svg";
-import CloseH from "../../../assets/images/buttons/closeH.svg";
 
 interface ButtonCloseProps {
   onClick?: () => void;

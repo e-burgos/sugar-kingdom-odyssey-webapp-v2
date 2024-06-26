@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 import { ticketGetById } from "@/api/endpoints/ticket/endpoints";
 import { ITicketResponse } from "@/api/endpoints/ticket/types";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";

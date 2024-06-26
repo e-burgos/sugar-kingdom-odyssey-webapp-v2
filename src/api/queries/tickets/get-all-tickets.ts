@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import { useAuth } from "../../../store/useAuth";
-import axiosClient from "../../config/axios-client";
 import { ticketGetAll } from "@/api/endpoints/ticket/endpoints";
 import { ITicketResponse } from "@/api/endpoints/ticket/types";
 import { generateHeaders } from "@/api/utils/HeaderEncoder";
+import { useAuth } from "@/store/useAuth";
+import axiosClient from "@/api/config/axios-client";
 
 export function GetAllTickets() {
   const { sessionId, userId, wallet } = useAuth();

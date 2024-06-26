@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import axiosClient from "../../config/axios-client";
+import axiosClient from "@/api/config/axios-client";
 import { noncePost } from "@/api/endpoints/nonce/endpoints";
 import { INonceResponse } from "@/api/endpoints/nonce/types";
 

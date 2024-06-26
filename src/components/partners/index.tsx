@@ -4,7 +4,7 @@ import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import styles from "./partners.module.css";
 import "swiper/css";
 import "swiper/css/pagination";
-import { partnersWhiteData } from "../../data/partners-white";
+import { partnersWhiteData } from "@/data/partners-white";
 
 interface PartnersProps {}
 

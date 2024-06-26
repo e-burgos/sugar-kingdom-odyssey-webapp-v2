@@ -1,9 +1,9 @@
 import { FunctionComponent, useState } from "react";
 import styles from "./button.module.css";
-import Paragraph from "../../typography/paragraph";
-import ButtonBg from "../../../assets/images/buttons/buttonBg.svg";
-import ButtonBgH from "../../../assets/images/buttons/buttonBgH.svg";
-import imgIcon from "../../../assets/images/icons/token.webp";
+import ButtonBg from "@/assets/images/buttons/buttonBg.svg";
+import ButtonBgH from "@/assets/images/buttons/buttonBgH.svg";
+import imgIcon from "@/assets/images/icons/token.webp";
+import Paragraph from "@/components/typography/paragraph";
 
 interface ButtonBalanceProps {
   label: string;
