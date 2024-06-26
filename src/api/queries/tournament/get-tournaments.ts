@@ -4,16 +4,29 @@ import axiosClient from "../../config/axios-client";
 import { ITournamentGetAllPaginatedResponse } from "../../endpoints/tournament/types";
 import { tournamentGetAllPaginated } from "../../endpoints/tournament/endpoints";
 import { usePaginationStore } from "../../../store/usePagination";
+import { generateHeaders } from "@/api/utils/HeaderEncoder";
 
 export function GetTournaments(page: number, pageSize: number) {
-  const { userId } = useAuth();
   const { setTotalPages, setTotalRecords } = usePaginationStore();
+  const { sessionId, userId, wallet } = useAuth();
+
+  const headers = generateHeaders({
+    method: tournamentGetAllPaginated(userId as string, page, pageSize).method,
+    endpoint: tournamentGetAllPaginated(userId as string, page, pageSize)
+      .endpoint,
+    payload: undefined,
+    wallet,
+    sessionId,
+    userId,
+  });
 
   const handleGetTournaments =
     async (): Promise<ITournamentGetAllPaginatedResponse> => {
       if (!userId) throw new Error("User ID is required");
       const data = await axiosClient
-        .get(tournamentGetAllPaginated(userId, page, pageSize).endpoint)
+        .get(tournamentGetAllPaginated(userId, page, pageSize).endpoint, {
+          headers,
+        })
         .then((res) => res.data as ITournamentGetAllPaginatedResponse);
       setTotalPages(data.totalPages);
       setTotalRecords(data.totalRecords);
@@ -23,8 +36,7 @@ export function GetTournaments(page: number, pageSize: number) {
   return useQuery({
     queryKey: ["get-tournaments", page, pageSize],
     queryFn: handleGetTournaments,
-    enabled: !!userId,
     refetchOnWindowFocus: false,
-    staleTime: 1000 * 60 * 5,
+    //enabled: !!userId,
   });
 }

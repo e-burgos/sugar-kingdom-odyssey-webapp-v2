@@ -1,3 +1,6 @@
+import { ITicketResponse } from "../ticket/types";
+import { IUserResponse } from "../user/types";
+
 export interface IGameResponse {
   id: string;
   validationErrors: string;
@@ -24,4 +27,17 @@ export interface IGamePostPayload {
     wallet: string;
     userName: string;
   };
+}
+
+export interface IUserGamesResponse {
+  ticketId: string;
+  startTime: string;
+  endTime: string;
+  movements: number;
+  points: number;
+  computed: boolean;
+  ticket: ITicketResponse;
+  user: IUserResponse;
+  id: string;
+  validationErrors: string;
 }

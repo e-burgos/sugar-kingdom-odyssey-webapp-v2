@@ -70,11 +70,16 @@ const MenuBar: FunctionComponent<MenuBarProps> = ({ className }) => {
         />
         <div className={styles.actions}>
           <ButtonImage
-            img={location.pathname === appPaths.game ? PlayButtonH : PlayButton}
+            img={
+              location.pathname === appPaths.tournaments ||
+              location.pathname === appPaths.game
+                ? PlayButtonH
+                : PlayButton
+            }
             imgHover={PlayButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            onClick={() => navigate(appPaths.game)}
+            onClick={() => navigate(appPaths.tournaments)}
           />
           <ButtonImage
             img={
@@ -119,7 +124,7 @@ const MenuBar: FunctionComponent<MenuBarProps> = ({ className }) => {
             imgHover={BuyButtonH}
             height="6.5vh"
             aspectRatio="271/74"
-            onClick={() => navigate(appPaths.buySugar)}
+            goToLink={linksData.buySugar}
           />
           <ButtonImage
             img={FaqButton}

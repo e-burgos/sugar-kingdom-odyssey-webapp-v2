@@ -1,21 +1,26 @@
-import { ITicketPostPayload, ITicketResponse } from "./types";
+import { MethodType } from "@/api/utils/HeaderEncoder";
+import {
+  ITicketPostPayload,
+  ITicketResponse,
+  ITicketsPostByTournamentIdPayload,
+} from "./types";
 
 export const ticketGetById = (id: string, responseType?: ITicketResponse) => {
   return {
     endpoint: `/api/ticket/${id}`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
 
-export const ticketPatch = (
+export const ticketPatchById = (
   id: string,
-  userId: string,
+  userId?: string,
   responseType?: ITicketResponse
 ) => {
   return {
     endpoint: `/api/ticket/${id}`,
-    method: "PATCH",
+    method: "PATCH" as MethodType,
     header: {
       userId: userId,
     },
@@ -29,18 +34,18 @@ export const ticketGetByUser = (
 ) => {
   return {
     endpoint: `/api/user/${userId}/ticket`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
 
 export const ticketGetByTournament = (
   tournamentId: string,
-  responseType?: ITicketResponse
+  responseType?: ITicketResponse[]
 ) => {
   return {
     endpoint: `/api/tournament/${tournamentId}/ticket`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -48,18 +53,32 @@ export const ticketGetByTournament = (
 export const ticketGetAll = (responseType?: ITicketResponse[]) => {
   return {
     endpoint: `/api/ticket`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
 
+// Only por development
 export const ticketPost = (
   payload: ITicketPostPayload,
   responseType?: ITicketResponse
 ) => {
   return {
     endpoint: `/api/ticket`,
-    method: "POST",
+    method: "POST" as MethodType,
+    payload,
+    responseType,
+  };
+};
+
+export const ticketPostByTournamentId = (
+  tournamentId: string,
+  payload: ITicketsPostByTournamentIdPayload,
+  responseType?: ITicketResponse[]
+) => {
+  return {
+    endpoint: `/api/tournament/${tournamentId}/ticket`,
+    method: "POST" as MethodType,
     payload,
     responseType,
   };
@@ -71,7 +90,7 @@ export const ticketPatchFirstUnused = (
 ) => {
   return {
     endpoint: `/api/ticket`,
-    method: "PATCH",
+    method: "PATCH" as MethodType,
     header: {
       userId: userId,
     },

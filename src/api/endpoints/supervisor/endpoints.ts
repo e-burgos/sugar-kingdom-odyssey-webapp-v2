@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import {
   ISupervisorGetResponse,
   ISupervisorGetTransfersResponse,
@@ -11,7 +12,7 @@ export const supervisorPost = (
 ) => {
   return {
     endpoint: `/api/Supervisor`,
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };
@@ -20,7 +21,7 @@ export const supervisorPost = (
 export const supervisorGet = (responseType?: ISupervisorGetResponse) => {
   return {
     endpoint: `/api/Supervisor`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -30,7 +31,7 @@ export const supervisorGetTransfers = (
 ) => {
   return {
     endpoint: `/api/Supervisor/transfers`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -41,7 +42,7 @@ export const supervisorGetWalletTransfers = (
 ) => {
   return {
     endpoint: `/api/Supervisor/transfers/${wallet}`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };

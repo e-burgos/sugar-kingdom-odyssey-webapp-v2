@@ -19,6 +19,10 @@ import CancelButton from "@/assets/images/tournaments/buttons/cancel.svg";
 import CancelButtonH from "@/assets/images/tournaments/buttons/cancelH.svg";
 import PlayButton from "@/assets/images/tournaments/buttons/play.svg";
 import PlayButtonH from "@/assets/images/tournaments/buttons/playH.svg";
+import { appPaths } from "@/router/RoutesConfig";
+import { ITournamentResponse } from "@/api/endpoints/tournament/types";
+import useUserTickets from "@/hooks/useUserTickets";
+import { useBuyTickets } from "@/store/useBuyTickets";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -33,12 +37,18 @@ const CyanContainerImg = new Image();
 CyanContainerImg.src = CyanContainer;
 
 interface PlayNowCardProps {
-  tickets: number;
-  setAction?: React.Dispatch<React.SetStateAction<TournamentAction>>;
+  tournament: ITournamentResponse;
+  cancelAction?: TournamentAction;
 }
 
-const PlayNowCard: React.FC<PlayNowCardProps> = ({ tickets, setAction }) => {
+const PlayNowCard: React.FC<PlayNowCardProps> = ({
+  tournament,
+  cancelAction,
+}) => {
   const navigate = useNavigate();
+  const { setAction } = useBuyTickets();
+
+  const { availableUserTickets } = useUserTickets(tournament.id);
 
   return (
     <div className={styles.wrapper}>
@@ -73,7 +83,9 @@ const PlayNowCard: React.FC<PlayNowCardProps> = ({ tickets, setAction }) => {
           />
           <div className={styles.ticketsText}>
             <Paragraph color="rgba(42, 252, 253, 1)" fontSize="30px">
-              {`${tickets} ${tickets > 1 ? "tickets" : "ticket"}`}
+              {`${availableUserTickets} ${
+                availableUserTickets > 1 ? "tickets" : "ticket"
+              }`}
             </Paragraph>
             <Paragraph color="rgba(42, 252, 253, 1)" fontSize="30px">
               {`available`}
@@ -92,10 +104,11 @@ const PlayNowCard: React.FC<PlayNowCardProps> = ({ tickets, setAction }) => {
         <ButtonImage
           img={PlayButton}
           imgHover={PlayButtonH}
+          disabled={availableUserTickets === 0}
           height="50px"
           aspectRatio="30/11"
           onClick={() => {
-            navigate("/game");
+            navigate(appPaths.game);
           }}
         />
         <ButtonImage
@@ -104,7 +117,7 @@ const PlayNowCard: React.FC<PlayNowCardProps> = ({ tickets, setAction }) => {
           height="50px"
           aspectRatio="30/11"
           onClick={() => {
-            setAction && setAction("initial");
+            setAction(tournament.id, cancelAction || "initial");
           }}
         />
       </div>

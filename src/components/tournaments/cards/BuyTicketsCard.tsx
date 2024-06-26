@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import ButtonImage from "../../buttons/button-image";
 import Paragraph from "../../typography/paragraph";
@@ -7,7 +8,9 @@ import {
   ITournamentResponse,
 } from "@/api/endpoints/tournament/types";
 import TokenList from "../tokens/token-list/TokenList";
-import { formatToMoney } from "@/utils/numberUtils";
+import { TournamentAction } from "./OrchestratorCard";
+import useTransaction from "@/hooks/useTransaction";
+import { useBuyTickets } from "@/store/useBuyTickets";
 
 // Bgs
 import GrayContainer from "@/assets/images/tournaments/gray.svg";
@@ -24,7 +27,6 @@ import PlusButton from "@/assets/images/tournaments/buttons/plus.svg";
 import PlusButtonH from "@/assets/images/tournaments/buttons/plusH.svg";
 import MinusButton from "@/assets/images/tournaments/buttons/minus.svg";
 import MinusButtonH from "@/assets/images/tournaments/buttons/minusH.svg";
-import { TournamentAction } from "./OrchestratorCard";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -39,18 +41,35 @@ const CyanContainerImg = new Image();
 CyanContainerImg.src = CyanContainer;
 
 interface BuyTicketsCardProps {
-  tournament?: ITournamentResponse;
+  tournament: ITournamentResponse;
   hidePlusButton?: boolean;
-  setAction?: React.Dispatch<React.SetStateAction<TournamentAction>>;
+  cancelAction?: TournamentAction;
 }
 
 const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
   tournament,
   hidePlusButton,
-  setAction,
+  cancelAction,
 }) => {
-  const [token, setToken] = useState<ITournamentPrice | null>(null);
-  const [tickets, setTickets] = useState<number>(1);
+  const { data, setData, setTickets, setToken, setAction, setAmount } =
+    useBuyTickets();
+
+  const ticketData = data.find((item) => item.id === tournament.id);
+  const token = ticketData?.token;
+  const tickets = ticketData?.tickets || 1;
+  const amount = (Number(token?.amount) * tickets).toString() || "0";
+
+  useEffect(() => {
+    if (!ticketData) setData({ id: tournament.id });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [ticketData]);
+
+  useEffect(() => {
+    if (token?.id) setAmount(tournament.id, amount);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [token?.id, amount]);
+
+  const { sendTransaction } = useTransaction(tournament, "0.001");
 
   const color =
     tournament?.statusFlag === "now"
@@ -119,11 +138,11 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
               tokens={tournament?.prices || []}
               hidePlusButton={hidePlusButton}
               setToken={(e) => {
-                setToken(e);
-                setTickets(1);
+                setToken(tournament.id, e as ITournamentPrice);
+                setTickets(tournament.id, 1);
               }}
             />
-            {token !== null && (
+            {token?.id && (
               <>
                 <Paragraph
                   style={{ marginTop: "25px" }}
@@ -140,8 +159,9 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
                     height="30px"
                     aspectRatio="20/17"
                     onClick={() => {
-                      setTickets(tickets - 1);
-                      if (tickets === 1) setToken(null);
+                      if (tickets === 1) setToken(tournament.id, null);
+                      setTickets(tournament.id, tickets - 1);
+                      setAmount(tournament.id, amount);
                     }}
                   />
                   <Paragraph fontSize="30px" color="rgba(42, 252, 253, 1)">
@@ -153,13 +173,18 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
                     imgHover={PlusButtonH}
                     height="30px"
                     aspectRatio="20/17"
-                    onClick={() => setTickets(tickets + 1)}
+                    onClick={() => {
+                      setTickets(tournament.id, tickets + 1);
+                      setTimeout(() => {
+                        setAmount(tournament.id, amount);
+                      }, 2000);
+                    }}
                   />
                 </div>
               </>
             )}
           </div>
-          {token !== null && (
+          {token?.id && (
             <div className={styles.infoNetwork}>
               <Paragraph
                 color="white"
@@ -173,9 +198,7 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
                 fontSize="10px"
                 fontFamily="Gotham-Light"
               >
-                {`TOTAL AMOUNT: ${formatToMoney(token?.amount || "0")} ${
-                  token?.token?.symbol
-                }`}
+                {`TOTAL AMOUNT: ${amount} ${token?.token?.symbol}`}
               </Paragraph>
               <Paragraph
                 color="white"
@@ -197,9 +220,8 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
           imgHover={BuyButtonH}
           height="50px"
           aspectRatio="30/11"
-          onClick={() => {
-            token && setAction && setAction("pending");
-          }}
+          disabled={!token || amount === "0"}
+          onClick={() => sendTransaction()}
         />
         <ButtonImage
           img={CancelButton}
@@ -207,8 +229,10 @@ const BuyTicketsCard: React.FC<BuyTicketsCardProps> = ({
           height="50px"
           aspectRatio="30/11"
           onClick={() => {
-            setToken(null);
-            setAction && setAction("initial");
+            setToken(tournament.id, null);
+            setTickets(tournament.id, 1);
+            setAmount(tournament.id, "0");
+            setAction(tournament.id, cancelAction || "initial");
           }}
         />
       </div>

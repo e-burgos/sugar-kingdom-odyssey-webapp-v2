@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import ButtonImage from "../../buttons/button-image";
 import Paragraph from "../../typography/paragraph";
@@ -12,6 +12,8 @@ import CyanContainer from "@/assets/images/tournaments/cyan.svg";
 
 // Characters
 import Character from "@/assets/images/tournaments/pendingCharacter.svg";
+import { useBuyTickets } from "@/store/useBuyTickets";
+import { PostTicketsByTournamentId } from "@/api/queries/tickets/post-tickets-by-tournament-id";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -30,6 +32,34 @@ interface PendingCardProps {
 }
 
 const PendingCard: React.FC<PendingCardProps> = ({ tournament }) => {
+  const { data, setPurchasedTickets } = useBuyTickets();
+  const ticketData = data.find((item) => item.id === tournament.id);
+  const txHash = ticketData?.txHash;
+  const token = ticketData?.token;
+  const tickets = ticketData?.tickets;
+  const txStatus = ticketData?.txStatus;
+
+  const postTickets = PostTicketsByTournamentId(
+    tournament.id,
+    tickets as number,
+    token?.id as string,
+    txHash as string
+  );
+
+  useEffect(() => {
+    if (txStatus === "pending" && txHash) {
+      postTickets.mutate();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (postTickets.isSuccess) {
+      setPurchasedTickets(tournament.id, postTickets.data);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [postTickets.isSuccess]);
+
   const color =
     tournament?.statusFlag === "now"
       ? "blue"

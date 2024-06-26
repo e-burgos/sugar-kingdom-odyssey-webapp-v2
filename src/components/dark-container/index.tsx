@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./dark-container.module.css";
 import ButtonClose from "@/components/buttons/button-close";
 import ButtonImage from "@/components/buttons/button-image";
@@ -9,6 +9,9 @@ import Paragraph from "@/components/typography/paragraph";
 import { appPaths } from "@/router/RoutesConfig";
 import { useNavigate } from "react-router-dom";
 import ButtonConnect from "@/components/buttons/button-connect";
+import useHandleChain from "@/hooks/useHandleChain";
+import ButtonText from "../buttons/button-text";
+import { useAuth } from "@/store/useAuth";
 
 interface DarkContainerProps {
   children?: React.ReactNode;
@@ -19,7 +22,7 @@ interface DarkContainerProps {
   style?: React.CSSProperties;
   onClose?: () => void;
   goToHomeButton?: boolean;
-  connectWallet?: boolean;
+  isError?: boolean;
 }
 
 const DarkContainer: React.FC<DarkContainerProps> = ({
@@ -31,9 +34,22 @@ const DarkContainer: React.FC<DarkContainerProps> = ({
   style,
   onClose,
   goToHomeButton,
-  connectWallet,
+  isError,
 }) => {
   const navigate = useNavigate();
+  const { isAuth } = useAuth();
+  const [initialize, setInitialize] = useState<boolean>(false);
+  const { isBnbNetwork, handleNetworkSwitch } = useHandleChain();
+
+  useEffect(() => {
+    if (!initialize) {
+      setTimeout(() => {
+        setInitialize(true);
+      }, 500);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div style={style} className={styles.wrapper}>
       {onClose && (
@@ -50,7 +66,7 @@ const DarkContainer: React.FC<DarkContainerProps> = ({
           className={styles.closeButton}
         />
       )}
-      {label && !header && (
+      {isAuth && !isError && label && !header && (
         <div className={styles.label}>
           <Paragraph
             fontFamily="Titan-Regular"
@@ -62,7 +78,7 @@ const DarkContainer: React.FC<DarkContainerProps> = ({
           </Paragraph>
         </div>
       )}
-      {header && !label && header}
+      {isAuth && !isError && header && !label && header}
       {!hideGain && (
         <ButtonImage
           img={GainImg}
@@ -82,7 +98,7 @@ const DarkContainer: React.FC<DarkContainerProps> = ({
           />
         </div>
       )}
-      {connectWallet && (
+      {!isAuth && (
         <div className={styles.container}>
           <Paragraph color="#F2AB02" fontWeight="bold" fontSize="40px">
             Please connect your wallet
@@ -90,7 +106,35 @@ const DarkContainer: React.FC<DarkContainerProps> = ({
           <ButtonConnect size="90px" />
         </div>
       )}
-      {children}
+      {initialize && !isBnbNetwork && (
+        <div className={styles.container}>
+          <Paragraph color="#F2AB02" fontWeight="bold" fontSize="40px">
+            Please switch to BNB Smart Chain
+          </Paragraph>
+          <ButtonText
+            label="Switch Network"
+            height="90px"
+            aspectRatio="155/74"
+            style={{ padding: "0 20px" }}
+            onClick={handleNetworkSwitch}
+          />
+        </div>
+      )}
+      {isError && (
+        <div className={styles.container}>
+          <Paragraph color="#F2AB02" fontWeight="bold" fontSize="40px">
+            An error occurred, please try again.
+          </Paragraph>
+          <ButtonText
+            label="Go Back"
+            height="90px"
+            aspectRatio="155/74"
+            style={{ padding: "0 20px" }}
+            onClick={() => navigate(-1)}
+          />
+        </div>
+      )}
+      {isAuth && isBnbNetwork && !isError && children}
     </div>
   );
 };

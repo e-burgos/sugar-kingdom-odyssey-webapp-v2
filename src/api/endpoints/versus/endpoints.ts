@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import {
   IVersusByWalletResponse,
   IVersusPostPayload,
@@ -10,7 +11,7 @@ export const versusGetByWallet = (
 ) => {
   return {
     endpoint: `/api/Versus/${wallet}`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -18,7 +19,7 @@ export const versusGetByWallet = (
 export const versusGetAll = (responseType?: IVersusResponse[]) => {
   return {
     endpoint: `/api/Versus`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -29,7 +30,7 @@ export const versusPost = (
 ) => {
   return {
     endpoint: `/api/Versus`,
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };

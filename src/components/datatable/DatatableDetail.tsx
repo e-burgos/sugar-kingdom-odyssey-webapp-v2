@@ -25,16 +25,17 @@ interface DataTableDetailProps<TData> {
   data: TData[];
   showPagination?: boolean;
   tournamentData: ITournamentResponse;
+  hideFooter?: boolean;
 }
 // @ts-ignore
 const DataTableDetail: React.FC<DataTableDetailProps<TData>> = ({
-  data: defaultData,
+  data,
   columns,
   showPagination,
   tournamentData,
+  hideFooter,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [data, _setData] = React.useState(() => [...defaultData]);
   const { pageNumber, pageSize } = usePaginationStore();
 
   const [pagination, setPagination] = React.useState<PaginationState>({
@@ -109,7 +110,7 @@ const DataTableDetail: React.FC<DataTableDetailProps<TData>> = ({
               </tr>
             ))}
           </tbody>
-          {tournamentData.statusFlag !== "future" && (
+          {!hideFooter && tournamentData.statusFlag !== "future" && (
             <tfoot className={styles.tfoot}>
               {table.getFooterGroups().map((footerGroup) => (
                 <tr className={styles.tr} key={footerGroup.id}>

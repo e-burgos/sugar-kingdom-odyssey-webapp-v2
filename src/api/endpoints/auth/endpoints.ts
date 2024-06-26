@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import {
   ILoginPostPayload,
   ILoginPostSignInPayload,
@@ -10,7 +11,7 @@ export const authLogin = (
 ) => {
   return {
     endpoint: "/api/Auth/login",
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };
@@ -23,7 +24,7 @@ export const authSignIn = (
 ) => {
   return {
     endpoint: `/api/Auth/${wallet}/sign`,
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };

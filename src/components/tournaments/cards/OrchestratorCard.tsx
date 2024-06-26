@@ -1,57 +1,49 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { ITournamentResponse } from "@/api/endpoints/tournament/types";
 import BuyCard from "./BuyCard";
 import BuyTicketsCard from "./BuyTicketsCard";
 import PlayNowCard from "./PlayNowCard";
-import { ITicketResponse } from "@/api/endpoints/ticket/types";
 import PendingCard from "./PendingCard";
 import SuccessCard from "./SuccessCard";
+import { useBuyTickets } from "@/store/useBuyTickets";
 
 export type TournamentAction =
   | "initial"
   | "buy-ticket"
   | "play-now"
   | "pending"
-  | "success";
+  | "success"
+  | "leaderboard";
 
 interface OrchestratorCardProps {
   tournament: ITournamentResponse;
-  userTickets?: ITicketResponse[];
+  initialAction?: TournamentAction;
+  actionCard?: TournamentAction;
 }
 
 const OrchestratorCard: React.FC<OrchestratorCardProps> = ({
   tournament,
-  userTickets,
+  initialAction,
+  actionCard,
 }) => {
-  const [action, setAction] = useState<TournamentAction>("initial");
+  const { data, setData } = useBuyTickets();
+  const ticketData = data.find((item) => item.id === tournament.id);
+  const action = ticketData?.action || "initial";
 
-  const handleUserTickets = () => {
-    if (userTickets) {
-      return userTickets.filter(
-        (ticket) => ticket.tournamentId === tournament.id
-      );
-    }
-    return [];
-  };
-
-  const userTicketCount = handleUserTickets()?.length || 0;
+  useEffect(() => {
+    if (!ticketData)
+      setData({
+        id: tournament.id,
+        action: actionCard || initialAction || "initial",
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
-      {action === "initial" && (
-        <BuyCard
-          character={tournament.statusFlag === "now" ? "orange" : "cyan"}
-          tournament={tournament}
-          userTickets={userTicketCount}
-          setAction={setAction}
-        />
-      )}
-      {action === "buy-ticket" && (
-        <BuyTicketsCard tournament={tournament} setAction={setAction} />
-      )}
-      {action === "play-now" && (
-        <PlayNowCard setAction={setAction} tickets={userTicketCount} />
-      )}
+      {action === "initial" && <BuyCard tournament={tournament} />}
+      {action === "buy-ticket" && <BuyTicketsCard tournament={tournament} />}
+      {action === "play-now" && <PlayNowCard tournament={tournament} />}
       {action === "pending" && <PendingCard tournament={tournament} />}
       {action === "success" && <SuccessCard tournament={tournament} />}
     </>

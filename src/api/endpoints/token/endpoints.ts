@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import { ITokenPostPayload, ITokenResponse } from "./types";
 
 export const tokenPost = (
@@ -6,7 +7,7 @@ export const tokenPost = (
 ) => {
   return {
     endpoint: `/api/Token`,
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };
@@ -15,7 +16,7 @@ export const tokenPost = (
 export const tokenGetAll = (responseType?: ITokenResponse[]) => {
   return {
     endpoint: `/api/Token`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -23,7 +24,7 @@ export const tokenGetAll = (responseType?: ITokenResponse[]) => {
 export const tokenGetById = (id: string, responseType?: ITokenResponse) => {
   return {
     endpoint: `/api/Token/${id}`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };

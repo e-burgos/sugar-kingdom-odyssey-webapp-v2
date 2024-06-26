@@ -4,10 +4,11 @@ const CellInfo = (props: {
   info: string;
   color?: string;
   fontSize?: string;
+  style?: React.CSSProperties;
 }) => {
   return (
     <Paragraph
-      style={{ textAlign: "center" }}
+      style={{ textAlign: "center", ...props.style }}
       fontFamily="Gotham-Medium"
       color={props.color || "white"}
       fontSize={props.fontSize}

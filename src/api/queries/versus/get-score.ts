@@ -3,14 +3,26 @@ import { useAuth } from "../../../store/useAuth";
 import axiosClient from "../../config/axios-client";
 import { IVersusByWalletResponse } from "../../endpoints/versus/types";
 import { versusGetByWallet } from "../../endpoints/versus/endpoints";
+import { generateHeaders } from "@/api/utils/HeaderEncoder";
 
 export function GetScore() {
-  const { wallet } = useAuth();
+  const { sessionId, userId, wallet } = useAuth();
+
+  const headers = generateHeaders({
+    method: versusGetByWallet(wallet as string).method,
+    endpoint: versusGetByWallet(wallet as string).endpoint,
+    payload: undefined,
+    wallet,
+    sessionId,
+    userId,
+  });
 
   const handleGetScore = async (): Promise<IVersusByWalletResponse> => {
     if (!wallet) throw new Error("Wallet not found");
     const data = await axiosClient
-      .get(versusGetByWallet(wallet).endpoint)
+      .get(versusGetByWallet(wallet).endpoint, {
+        headers,
+      })
       .then((res) => res.data as IVersusByWalletResponse);
     return data;
   };
@@ -18,7 +30,8 @@ export function GetScore() {
   return useQuery({
     queryKey: ["get-score", wallet],
     queryFn: handleGetScore,
-    enabled: !!wallet,
     refetchOnWindowFocus: false,
+    //enabled: !!wallet,
+    //staleTime: 1000 * 60 * 5,
   });
 }

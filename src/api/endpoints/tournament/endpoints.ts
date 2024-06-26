@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import {
   ITournamentGetAllPaginatedResponse,
   ITournamentPostPayload,
@@ -13,7 +14,7 @@ export const tournamentPostTickets = (
 ) => {
   return {
     endpoint: `/api/tournament/${tournamentId}/ticket`,
-    method: "POST",
+    method: "POST" as MethodType,
     header: {
       userId: userId,
     },
@@ -30,7 +31,22 @@ export const tournamentGetAllPaginated = (
 ) => {
   return {
     endpoint: `/api/Tournament?page=${page}&pageSize=${pageSize}`,
-    method: "GET",
+    method: "GET" as MethodType,
+    header: {
+      userId: userId,
+    },
+    responseType,
+  };
+};
+
+export const tournamentGetById = (
+  userId: string,
+  tournamentId: string,
+  responseType?: ITournamentResponse
+) => {
+  return {
+    endpoint: `/api/Tournament/${tournamentId}`,
+    method: "GET" as MethodType,
     header: {
       userId: userId,
     },
@@ -44,7 +60,7 @@ export const tournamentPost = (
 ) => {
   return {
     endpoint: `/api/Tournament`,
-    method: "POST",
+    method: "POST" as MethodType,
     payload,
     responseType,
   };

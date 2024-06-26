@@ -4,6 +4,7 @@ import ButtonImage from "../../buttons/button-image";
 import Paragraph from "../../typography/paragraph";
 import { ITournamentResponse } from "@/api/endpoints/tournament/types";
 import { useNavigate } from "react-router-dom";
+import { useBuyTickets } from "@/store/useBuyTickets";
 
 // Bgs
 import GrayContainer from "@/assets/images/tournaments/gray.svg";
@@ -19,7 +20,6 @@ import CancelButton from "@/assets/images/tournaments/buttons/cancel.svg";
 import CancelButtonH from "@/assets/images/tournaments/buttons/cancelH.svg";
 import PlayButton from "@/assets/images/tournaments/buttons/play.svg";
 import PlayButtonH from "@/assets/images/tournaments/buttons/playH.svg";
-import { TournamentAction } from "./OrchestratorCard";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -35,11 +35,14 @@ CyanContainerImg.src = CyanContainer;
 
 interface SuccessCardProps {
   tournament: ITournamentResponse;
-  setAction?: React.Dispatch<React.SetStateAction<TournamentAction>>;
 }
 
-const SuccessCard: React.FC<SuccessCardProps> = ({ tournament, setAction }) => {
+const SuccessCard: React.FC<SuccessCardProps> = ({ tournament }) => {
+  const { data, setAction } = useBuyTickets();
   const navigate = useNavigate();
+
+  const ticketData = data.find((item) => item.id === tournament.id);
+
   const color =
     tournament?.statusFlag === "now"
       ? "blue"
@@ -106,7 +109,7 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ tournament, setAction }) => {
               {`Success! You purchased`}
             </Paragraph>
             <Paragraph color="rgba(42, 252, 253, 1)" fontSize="25px">
-              {`5 tickets`}
+              {`${ticketData?.tickets} tickets`}
             </Paragraph>
           </div>
         </div>
@@ -127,7 +130,7 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ tournament, setAction }) => {
           height="50px"
           aspectRatio="30/11"
           onClick={() => {
-            setAction && setAction("initial");
+            setAction(tournament.id, "initial");
           }}
         />
       </div>

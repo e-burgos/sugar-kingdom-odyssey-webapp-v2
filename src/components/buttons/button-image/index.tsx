@@ -18,6 +18,7 @@ interface ButtonImageProps {
   style?: React.CSSProperties;
   goToLink?: string;
   noAvailable?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
@@ -35,6 +36,7 @@ const ButtonImage: FunctionComponent<ButtonImageProps> = ({
   style,
   goToLink,
   noAvailable,
+  disabled,
   onClick,
 }) => {
   const [hover, setHover] = useState<boolean>(false);
@@ -49,8 +51,8 @@ const ButtonImage: FunctionComponent<ButtonImageProps> = ({
   imgNoAvailable.src = NoAvailable;
 
   const handleClick = () => {
-    if (goToLink) handleLink(goToLink, "_blank");
-    if (onClick) onClick();
+    if (goToLink && !disabled) handleLink(goToLink, "_blank");
+    if (onClick && !disabled) onClick();
   };
 
   return (
@@ -63,6 +65,7 @@ const ButtonImage: FunctionComponent<ButtonImageProps> = ({
         height: height,
         width: width,
         aspectRatio: aspectRatio,
+        cursor: disabled ? "not-allowed" : "pointer",
         ...style,
       }}
     >
@@ -74,7 +77,13 @@ const ButtonImage: FunctionComponent<ButtonImageProps> = ({
         />
       )}
       <img
-        src={hover ? imgHoverCover.src : imgCover.src}
+        src={
+          hover
+            ? imgHoverCover.src
+            : disabled
+            ? imgHoverCover.src
+            : imgCover.src
+        }
         alt="Logo"
         className={styles.buttonImage}
       />

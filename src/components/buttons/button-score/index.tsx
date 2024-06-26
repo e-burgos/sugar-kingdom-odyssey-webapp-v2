@@ -1,11 +1,11 @@
 import React from "react";
-import { useXerialWallet } from "../../../hooks/useXerialWallet";
 import ButtonText from "../button-text";
+import { useAuth } from "@/store/useAuth";
 
 interface ButtonScoreProps {}
 
 const ButtonScore: React.FC<ButtonScoreProps> = () => {
-  const { wallet, score } = useXerialWallet();
+  const { wallet, score } = useAuth();
 
   return (
     <ButtonText

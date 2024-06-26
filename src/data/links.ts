@@ -6,4 +6,6 @@ export const linksData = {
   twitter: "https://twitter.com/SugarKingdomNFT",
   stake: "https://staking.sugarkingdom.io/",
   landing: "https://sugarkingdom.io/",
+  buySugar:
+    "https://pancakeswap.finance/swap?inputCurrency=0x9Bf543D8460583Ff8a669Aae01d9cDbeE4dEfE3c&outputCurrency=0x55d398326f99059fF775485246999027B3197955",
 };

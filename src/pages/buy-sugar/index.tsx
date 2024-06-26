@@ -8,13 +8,7 @@ interface BuySugarProps {
 
 const BuySugar: React.FC<BuySugarProps> = ({ style }) => {
   return (
-    <DarkContainer
-      style={style}
-      label="Buy Sugar"
-      hideGain
-      goToHomeButton
-      connectWallet
-    >
+    <DarkContainer style={style} label="Buy Sugar" hideGain goToHomeButton>
       <div className={styles.wrapper}></div>
     </DarkContainer>
   );

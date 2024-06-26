@@ -1,13 +1,13 @@
 import { useCallback, useEffect, useState } from "react";
-import { useXerialWallet } from "./useXerialWallet";
 import { useUnityProvider } from "./useUnityProvider";
 import { ReactUnityEventParameter } from "react-unity-webgl/distribution/types/react-unity-event-parameters";
 import { PostScore } from "../api/queries/versus/post-score";
 import { useLocation } from "react-router-dom";
 import { appPaths } from "../router/RoutesConfig";
+import { useAuth } from "@/store/useAuth";
 
 export function useMessageSystem() {
-  const { wallet } = useXerialWallet();
+  const { wallet } = useAuth();
   const location = useLocation();
   const currentPage = location.pathname.split("/")[1];
   const {

@@ -6,6 +6,7 @@ export interface ITournamentPostTicketsPayload {
 }
 
 export interface ITournamentPrice {
+  id: string;
   tokenId: string;
   amount: string;
   token: IToken;

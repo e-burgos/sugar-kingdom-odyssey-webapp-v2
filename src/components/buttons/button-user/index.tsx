@@ -1,11 +1,14 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./button-user.module.css";
-import { useAuth } from "../../../store/useAuth";
-import ButtonImg from "../../../assets/images/buttons/largeButtonBg.svg";
-import ButtonImgH from "../../../assets/images/buttons/largeButtonBgH.svg";
-import Avatar from "../../../assets/images/icons/sugarAvatar.svg";
+import { useAuth } from "@/store/useAuth";
 import Paragraph from "../../typography/paragraph";
-import { GetScore } from "../../../api/queries/versus/get-score";
+import { GetScore } from "@/api/queries/versus/get-score";
+import { GetUserById } from "@/api/queries/user/get-user-by-id";
+
+// Assets
+import ButtonImg from "@/assets/images/buttons/largeButtonBg.svg";
+import ButtonImgH from "@/assets/images/buttons/largeButtonBgH.svg";
+import Avatar from "@/assets/images/profile/emptyAvatar.svg";
 
 interface ButtonUserProps {
   className?: string;
@@ -22,7 +25,8 @@ const ButtonUser: FunctionComponent<ButtonUserProps> = ({
   style,
   onClick,
 }) => {
-  const { score, wallet, isAuth, setScore } = useAuth();
+  const { userId, wallet, userName, setWallet, setUserName, setScore } =
+    useAuth();
   const [hover, setHover] = useState<boolean>(false);
 
   const buttonBgImg = new Image();
@@ -35,51 +39,75 @@ const ButtonUser: FunctionComponent<ButtonUserProps> = ({
   iconImg.src = Avatar;
 
   const handleHover = () => {
-    if (hover) return buttonBgHoverImg.src;
-    return buttonBgImg.src;
+    if (hover) return buttonBgImg.src;
+    return buttonBgHoverImg.src;
   };
 
   // Initialize score
-  const query = GetScore();
+  const getScore = GetScore();
+  const getUser = GetUserById();
+
   useEffect(() => {
-    if (query.isSuccess) {
-      setScore(query.data?.score ? query.data.score : 0);
+    if (getScore.isSuccess) {
+      setScore(getScore.data?.score ? getScore.data.score : 0);
     }
-  }, [query.data?.score, query.isSuccess, setScore]);
+  }, [getScore.data?.score, getScore.isSuccess, setScore]);
+
+  useEffect(() => {
+    if (getUser.isSuccess) {
+      setWallet(getUser.data?.wallet);
+      setUserName(getUser.data?.userName);
+    }
+  }, [
+    getUser.data?.wallet,
+    getUser.data?.userName,
+    getUser?.isSuccess,
+    setWallet,
+    setUserName,
+  ]);
 
   return (
-    <button
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={onClick}
-      className={`${styles.button} ${className}`}
-      style={{
-        height: height || "85%",
-        aspectRatio: aspectRatio || "55/21",
-        ...style,
-      }}
-    >
-      <img src={handleHover()} alt="bg" className={styles.imgBg} />
-      <div className={styles.container}>
-        <img src={iconImg.src} alt="icon" className={styles.avatar} />
-        <div className={styles.content}>
-          {isAuth ? (
-            <>
-              <Paragraph htmlTag="p" fontSize="16px" color="white">
-                {`Score: ${score}`}
-              </Paragraph>
-              <Paragraph htmlTag="p" fontSize="10px" color="white">
-                {wallet?.substring(0, 18) + "..." || ""}
-              </Paragraph>
-            </>
-          ) : (
-            <Paragraph htmlTag="p" fontSize="10px" color="white">
-              {`Customize your avatar!`}
-            </Paragraph>
-          )}
-        </div>
-      </div>
-    </button>
+    <>
+      {userId && (
+        <button
+          onMouseEnter={() => setHover(true)}
+          onMouseLeave={() => setHover(false)}
+          onClick={onClick}
+          className={`${styles.button} ${className}`}
+          style={{
+            height: height || "85%",
+            aspectRatio: aspectRatio || "55/21",
+            ...style,
+          }}
+        >
+          <img src={handleHover()} alt="bg" className={styles.imgBg} />
+          <div className={styles.container}>
+            <img src={iconImg.src} alt="icon" className={styles.avatar} />
+            <div className={styles.content}>
+              {userId ? (
+                <>
+                  <Paragraph htmlTag="p" fontSize="16px" color="white">
+                    {`${
+                      userName?.substring(0, 11) +
+                        `${userName && userName?.length > 10 ? "..." : ""}` ||
+                      ""
+                    }`}
+                  </Paragraph>
+                  <Paragraph htmlTag="p" fontSize="10px" color="white">
+                    {wallet?.substring(0, 18) +
+                      `${wallet && wallet?.length > 17 ? "..." : ""}` || ""}
+                  </Paragraph>
+                </>
+              ) : (
+                <Paragraph htmlTag="p" fontSize="10px" color="white">
+                  {`Customize your avatar!`}
+                </Paragraph>
+              )}
+            </div>
+          </div>
+        </button>
+      )}
+    </>
   );
 };
 

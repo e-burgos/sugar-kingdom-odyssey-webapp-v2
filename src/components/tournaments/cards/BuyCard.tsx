@@ -7,7 +7,6 @@ import LeaderboardDetailButton from "@/components/leaderboard/LeaderboardDetailB
 import TokenList from "../tokens/token-list/TokenList";
 import { handleRemainingTime } from "@/utils/functions";
 import { formatToMoney, formatUTCDate } from "@/utils/numberUtils";
-import { TournamentAction } from "./OrchestratorCard";
 
 // Bgs
 import GrayContainer from "@/assets/images/tournaments/gray.svg";
@@ -16,15 +15,17 @@ import OrangeContainer from "@/assets/images/tournaments/orange.svg";
 import CyanContainer from "@/assets/images/tournaments/cyan.svg";
 
 // Characters
-import BlueCharacter from "@/assets/images/tournaments/blueCharacter.svg";
-import OrangeCharacter from "@/assets/images/tournaments/orangeCharacter.svg";
-import CyanCharacter from "@/assets/images/tournaments/cyanCharacter.svg";
+import PreviousCharacter from "@/assets/images/tournaments/blueCharacter.svg";
+import NowCharacter from "@/assets/images/tournaments/orangeCharacter.svg";
+import FutureCharacter from "@/assets/images/tournaments/cyanCharacter.svg";
 
 // Buttons
 import BuyTicketButton from "@/assets/images/tournaments/buttons/buyTicket.svg";
 import BuyTicketButtonH from "@/assets/images/tournaments/buttons/buyTicketH.svg";
 import PlayNowButton from "@/assets/images/tournaments/buttons/playNow.svg";
 import PlayNowButtonH from "@/assets/images/tournaments/buttons/playNowH.svg";
+import useUserTickets from "@/hooks/useUserTickets";
+import { useBuyTickets } from "@/store/useBuyTickets";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -39,20 +40,21 @@ const CyanContainerImg = new Image();
 CyanContainerImg.src = CyanContainer;
 
 interface BuyCardProps {
-  character?: "gray" | "orange" | "cyan";
-  tournament?: ITournamentResponse;
+  tournament: ITournamentResponse;
   hidePlusButton?: boolean;
-  userTickets: number;
-  setAction?: React.Dispatch<React.SetStateAction<TournamentAction>>;
 }
 
-const BuyCard: React.FC<BuyCardProps> = ({
-  character,
-  tournament,
-  hidePlusButton,
-  userTickets,
-  setAction,
-}) => {
+const BuyCard: React.FC<BuyCardProps> = ({ tournament, hidePlusButton }) => {
+  const { setAction } = useBuyTickets();
+  const { availableUserTickets } = useUserTickets(tournament.id);
+
+  const TournamentType = `${tournament?.statusFlag
+    .slice(0, 1)
+    .toUpperCase()}${tournament?.statusFlag.slice(
+    1,
+    tournament?.statusFlag.length
+  )}`;
+
   const color =
     tournament?.statusFlag === "now"
       ? "blue"
@@ -62,12 +64,21 @@ const BuyCard: React.FC<BuyCardProps> = ({
       ? "gray"
       : "orange";
 
-  const TournamentType = `${tournament?.statusFlag
-    .slice(0, 1)
-    .toUpperCase()}${tournament?.statusFlag.slice(
-    1,
-    tournament?.statusFlag.length
-  )}`;
+  const character =
+    color === "cyan"
+      ? FutureCharacter
+      : color === "orange"
+      ? PreviousCharacter
+      : NowCharacter;
+
+  const backgroundColor =
+    color === "blue"
+      ? BlueContainerImg.src
+      : color === "orange"
+      ? OrangeContainerImg.src
+      : color === "gray"
+      ? GrayContainerImg.src
+      : CyanContainerImg.src;
 
   return (
     <div className={styles.wrapper}>
@@ -85,15 +96,7 @@ const BuyCard: React.FC<BuyCardProps> = ({
       <div
         className={styles.container}
         style={{
-          backgroundImage: `url(${
-            color === "blue"
-              ? BlueContainerImg.src
-              : color === "orange"
-              ? OrangeContainerImg.src
-              : color === "gray"
-              ? GrayContainerImg.src
-              : CyanContainerImg.src
-          })`,
+          backgroundImage: `url(${backgroundColor})`,
         }}
       >
         <div className={styles.content}>
@@ -117,24 +120,12 @@ const BuyCard: React.FC<BuyCardProps> = ({
           </div>
 
           <ButtonImage
-            img={
-              color === "cyan"
-                ? CyanCharacter
-                : character === "orange"
-                ? OrangeCharacter
-                : BlueCharacter
-            }
-            imgHover={
-              character === "cyan"
-                ? CyanCharacter
-                : character === "orange"
-                ? OrangeCharacter
-                : BlueCharacter
-            }
+            img={character}
+            imgHover={character}
             aspectRatio={
-              character === "cyan"
+              color === "cyan"
                 ? "162/173"
-                : character === "orange"
+                : color === "blue"
                 ? "252/167"
                 : "1/1"
             }
@@ -166,7 +157,9 @@ const BuyCard: React.FC<BuyCardProps> = ({
               imgHover={BuyTicketButtonH}
               height="50px"
               aspectRatio="30/11"
-              onClick={() => setAction && setAction("buy-ticket")}
+              onClick={() =>
+                setAction && setAction(tournament.id, "buy-ticket")
+              }
             />
             {tournament?.statusFlag === "now" && (
               <LeaderboardDetailButton data={tournament} size="50px" />
@@ -176,11 +169,13 @@ const BuyCard: React.FC<BuyCardProps> = ({
       </div>
       {tournament?.statusFlag === "now" && (
         <ButtonImage
-          img={userTickets ? PlayNowButton : PlayNowButtonH}
+          img={availableUserTickets ? PlayNowButton : PlayNowButtonH}
           imgHover={PlayNowButtonH}
           width="220px"
           aspectRatio="63/29"
-          onClick={() => setAction && userTickets > 0 && setAction("play-now")}
+          onClick={() =>
+            availableUserTickets > 0 && setAction(tournament.id, "play-now")
+          }
         />
       )}
     </div>

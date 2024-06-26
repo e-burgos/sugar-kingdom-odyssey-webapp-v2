@@ -53,7 +53,7 @@ export const columns = [
   columnHelper.accessor((row) => row.rank, {
     id: "rank",
     cell: (info) => {
-      const userRank = info.table.options.data[0].userRank.rank;
+      const userRank = info.table.options.data[0].userRank?.rank || 0;
       return (
         <div
           style={{
@@ -150,7 +150,7 @@ export const columns = [
         }}
       >
         <CellInfo
-          info={`# ${info.table.options.data[0].userRank.rank}`}
+          info={`# ${info.table.options.data[0].userRank?.rank || 0}`}
           fontSize="20px"
         />
         <div
@@ -163,7 +163,10 @@ export const columns = [
         >
           <CellInfo info={"YOU"} />
           <CellInfo
-            info={info.table.options.data[0].userRank.userName.toLocaleUpperCase()}
+            info={
+              info.table.options.data[0].userRank?.userName?.toLocaleUpperCase() ||
+              ""
+            }
             color="rgba(150, 233, 237, 1)"
           />
         </div>
@@ -260,7 +263,7 @@ export const columns = [
       >
         <CellInfo
           info={`${numberWithCommas(
-            info.table.options.data[0].userRank.points
+            info.table.options.data[0].userRank?.points || 0
           )} PTS`}
         />
       </div>

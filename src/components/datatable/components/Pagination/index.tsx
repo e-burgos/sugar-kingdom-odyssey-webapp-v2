@@ -1,7 +1,7 @@
 import React from "react";
 import { Table } from "@tanstack/react-table";
 import styles from "./pagination.module.css";
-import { TData } from "../../../../pages/leaderboard/datatable/TournamentColumns";
+import { TData } from "../../../../pages/leaderboard/Datatable/TournamentColumns";
 import ButtonLeft from "../../../buttons/button-left";
 import ButtonRight from "../../../buttons/button-right";
 import ButtonText from "../../../buttons/button-text";
@@ -59,9 +59,7 @@ const Pagination: React.FC<PaginationProps> = ({ table }) => {
             >
               {[5, 10, 20, 30, 40, 50].map((pageSize) => (
                 <option key={pageSize} value={pageSize}>
-                  <Paragraph fontFamily="Gotham-Medium" color="white">
-                    {`${pageSize} records`}
-                  </Paragraph>
+                  {`${pageSize} records`}
                 </option>
               ))}
             </select>

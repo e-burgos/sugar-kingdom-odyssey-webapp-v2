@@ -45,11 +45,11 @@ const ButtonBalance: FunctionComponent<ButtonBalanceProps> = ({
 
   const handleHover = () => {
     if (hover) {
-      if (imgHover) return imgHoverCover.src;
-      return buttonBgHoverImg.src;
+      if (imgHover) return imgCover.src;
+      return buttonBgImg.src;
     }
-    if (img) return imgCover.src;
-    return buttonBgImg.src;
+    if (img) return imgHoverCover.src;
+    return buttonBgHoverImg.src;
   };
 
   return (

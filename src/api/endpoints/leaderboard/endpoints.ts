@@ -1,3 +1,4 @@
+import { MethodType } from "@/api/utils/HeaderEncoder";
 import { ILeaderboardResponse, ILeaderboardUserResponse } from "./types";
 
 export const leaderboardGetByTournamentId = (
@@ -6,7 +7,7 @@ export const leaderboardGetByTournamentId = (
 ) => {
   return {
     endpoint: `/api/tournament/${tournamentId}/leaderboard`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };
@@ -17,7 +18,7 @@ export const leaderboardGetByUserId = (
 ) => {
   return {
     endpoint: `/api/user/${userId}/leaderboard`,
-    method: "GET",
+    method: "GET" as MethodType,
     responseType,
   };
 };

@@ -4,7 +4,7 @@ import DarkContainer from "@/components/dark-container";
 import DataTable from "@/components/datatable";
 import { GetTournaments } from "@/api/queries/tournament/get-tournaments";
 import Spinner from "@/components/spinner/Spinner";
-import { columns, mapper } from "./datatable/TournamentColumns";
+import { columns, mapper } from "./Datatable/TournamentColumns";
 import { usePaginationStore } from "@/store/usePagination";
 
 interface LeaderboardProps {

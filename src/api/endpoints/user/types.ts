@@ -3,6 +3,7 @@ export interface IUserResponse {
   validationErrors: string;
   wallet: string;
   userName: string;
+  avatar?: string;
 }
 
 export interface IUserPostPayload {

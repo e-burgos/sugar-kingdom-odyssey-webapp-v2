@@ -9,6 +9,8 @@ export interface ITicketResponse {
   usedDate: string;
   paymentRegisteredDate: string;
   transactionId: string;
+  createdDate: string;
+  used: boolean;
 }
 
 export interface ITicketPostPayload {
@@ -20,4 +22,12 @@ export interface ITicketPostPayload {
   usedDate: string;
   paymentRegisteredDate: string;
   transactionId: string;
+  createdDate: string;
+  used: boolean;
+}
+
+export interface ITicketsPostByTournamentIdPayload {
+  ticketAmount: number;
+  priceId: string;
+  transactionHash: string;
 }

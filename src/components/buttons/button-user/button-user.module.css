@@ -28,8 +28,9 @@
 
 .avatar {
   margin-top: 2px;
-  width: 55px;
-  height: 55px;
+  margin-left: 4px;
+  width: 45px;
+  height: 45px;
 }
 
 .content {
