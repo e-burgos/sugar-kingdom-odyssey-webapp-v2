@@ -1,29 +1,37 @@
 import { useCallback, useEffect, useState } from "react";
 import { useUnityProvider } from "./useUnityProvider";
 import { ReactUnityEventParameter } from "react-unity-webgl/distribution/types/react-unity-event-parameters";
-import { PostScore } from "../api/queries/versus/post-score";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { appPaths } from "../router/RoutesConfig";
 import { useAuth } from "@/store/useAuth";
+import { PatchTicketFirstUnused } from "@/api/queries/tickets/patch-ticket-first-unused";
+import { IGameOverResponse } from "@/api/types/unity";
+import { PostGame } from "@/api/queries/game/post-game";
+import { IGamePostPayload } from "@/api/endpoints/game/types";
+import { ITicketResponse } from "@/api/endpoints/ticket/types";
+import { toast } from "react-toastify";
 
 export function useMessageSystem() {
   const { wallet } = useAuth();
   const location = useLocation();
-  const currentPage = location.pathname.split("/")[1];
+  const navigate = useNavigate();
+  const currentPage = location.pathname;
+
   const {
     unityConfigParams,
     unityProvider,
     loadingProgression,
     unityInstance,
-    handleRemoveUnityInstance,
     isLoaded,
     sendMessage,
     addEventListener,
     removeEventListener,
+    handleRemoveUnityInstance,
   } = useUnityProvider();
 
-  const [points, setPoints] = useState<number>(0);
-  const postScore = PostScore(points);
+  const [gameTicket, setGameTicket] = useState<ITicketResponse | null>(null);
+  const postGame = PostGame();
+  const patchTicketFirstUnused = PatchTicketFirstUnused();
 
   const handleSendMessage = useCallback(
     (type: string, payload: string) => {
@@ -49,37 +57,73 @@ export function useMessageSystem() {
     [handleSendMessage]
   );
 
-  const handleReceiveScore = useCallback(
-    (getScore: ReactUnityEventParameter) => {
-      const newScore = Number(getScore);
-      return setPoints(newScore);
+  const handleGameOver = useCallback(
+    (gameData: ReactUnityEventParameter) => {
+      const results: IGameOverResponse = JSON.parse(gameData as string);
+      const payload: IGamePostPayload = {
+        ticketId: gameTicket?.id || "",
+        gameTime: results.GameTime,
+        matches: results.Matches,
+        score: results.Score,
+        maxCombo: results.MaxCombo,
+        phase: results.Phase,
+        progress: results.Progress,
+      };
+      if (currentPage !== appPaths.game) return;
+      const data = postGame.mutate(payload);
+      return data;
     },
-    [setPoints]
+    [gameTicket, currentPage, postGame]
   );
+
+  const handleCloseUnity = useCallback(() => {
+    if (currentPage === appPaths.game) return navigate(appPaths.home);
+    return;
+  }, [currentPage, navigate]);
+
+  const handleUsedTicket = useCallback(() => {
+    if (currentPage === appPaths.game) patchTicketFirstUnused.mutate();
+  }, [currentPage, patchTicketFirstUnused]);
 
   // Add event listener
   useEffect(() => {
-    if (isLoaded) addEventListener("GameOver", handleReceiveScore);
+    if (isLoaded) {
+      addEventListener("GameOver", handleGameOver);
+      addEventListener("UsedTicket", handleUsedTicket);
+      addEventListener("CloseUnity", handleCloseUnity);
+    }
     return () => {
-      removeEventListener("GameOver", handleReceiveScore);
+      removeEventListener("GameOver", handleGameOver);
+      removeEventListener("UsedTicket", handleUsedTicket);
+      removeEventListener("CloseUnity", handleCloseUnity);
     };
-  }, [addEventListener, handleReceiveScore, isLoaded, removeEventListener]);
+  }, [
+    isLoaded,
+    addEventListener,
+    handleGameOver,
+    handleUsedTicket,
+    removeEventListener,
+    handleCloseUnity,
+  ]);
 
   // Send audio
   useEffect(() => {
-    if (currentPage === appPaths.game) {
+    if (currentPage === appPaths.game || currentPage === appPaths.tryGame) {
       if (isLoaded) handleSendAudio(true);
     } else if (isLoaded) handleSendAudio(false);
   }, [currentPage, handleSendAudio, isLoaded]);
 
   // Post score
   useEffect(() => {
-    if (points > 0) {
-      postScore.mutate();
-      setPoints(0);
+    if (patchTicketFirstUnused.isSuccess) {
+      setGameTicket(patchTicketFirstUnused.data);
+    }
+    if (patchTicketFirstUnused.isError) {
+      navigate(appPaths.home);
+      toast.error("Your ticket is invalid, please try again.");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [points]);
+  }, [patchTicketFirstUnused.isSuccess, patchTicketFirstUnused.isError]);
 
   return {
     unity: {
@@ -97,7 +141,7 @@ export function useMessageSystem() {
       handleSendMessage,
       handleSendWallet,
       handleSendAudio,
-      handleReceiveScore,
+      handleGameOver,
     },
   };
 }

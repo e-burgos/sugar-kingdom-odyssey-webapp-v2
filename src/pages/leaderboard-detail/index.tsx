@@ -34,6 +34,10 @@ const LeaderboardDetail: React.FC<LeaderboardDetailProps> = ({ style }) => {
   const { userId } = useAuth();
   const tournamentId = params.id as string;
 
+  // Fetch the leaderboard data
+  const getTournament = GetTournamentById(tournamentId);
+  const getLeaderboard = GetLeaderboardByTournamentId(tournamentId);
+
   // state
   const { data: ticketData, setData, setAction } = useBuyTickets();
   const currentTicket = ticketData.find((item) => item.id === tournamentId);
@@ -48,12 +52,12 @@ const LeaderboardDetail: React.FC<LeaderboardDetailProps> = ({ style }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Fetch the leaderboard data
-  const getTournament = GetTournamentById(tournamentId);
-  const getLeaderboard = GetLeaderboardByTournamentId(tournamentId);
-
   const handleUserRank = useCallback(() => {
-    if (userId && getLeaderboard?.data) {
+    if (
+      userId &&
+      getLeaderboard?.data &&
+      getLeaderboard.data?.Error !== undefined
+    ) {
       const user = getLeaderboard.data.entries?.find(
         (entry) => entry?.userId === userId
       );
@@ -73,7 +77,11 @@ const LeaderboardDetail: React.FC<LeaderboardDetailProps> = ({ style }) => {
     <DarkContainer
       style={style}
       hideGain
-      isError={getLeaderboard.isError}
+      isError={
+        getLeaderboard.isError ||
+        getTournament.isError ||
+        getLeaderboard.data?.Error !== undefined
+      }
       header={
         <div className={styles.header}>
           <ButtonLeft

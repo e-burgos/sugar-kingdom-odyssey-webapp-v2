@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import styles from "./tournaments.module.css";
 import DarkContainer from "@/components/dark-container";
 import { usePaginationStore } from "@/store/usePagination";
@@ -13,16 +13,27 @@ interface TournamentsProps {
 const Tournaments: React.FC<TournamentsProps> = ({ style }) => {
   // hooks
   const { pageNumber, pageSize } = usePaginationStore();
-  const { data, isSuccess, isLoading } = GetTournaments(pageNumber, pageSize);
+  const getTournaments = GetTournaments(pageNumber, pageSize);
+
+  useEffect(() => {
+    getTournaments.refetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <DarkContainer style={style} hideGain goToHomeButton>
+    <DarkContainer
+      isError={getTournaments.isError}
+      style={style}
+      hideGain
+      goToHomeButton
+    >
       <div className={styles.wrapper}>
-        {(!isSuccess || isLoading) && <Spinner />}
-        {isSuccess &&
-          data?.data
-            .sort((a, b) => (a.statusFlag > b.statusFlag ? 1 : -1))
-            .reverse()
+        {(!getTournaments.isSuccess ||
+          getTournaments.isLoading ||
+          getTournaments.isFetching) && <Spinner />}
+        {getTournaments.isSuccess &&
+          getTournaments.data?.data
+            .sort((a, b) => (a.statusFlag > b.statusFlag ? -1 : 1))
             .map((tournament) => (
               <Fragment key={tournament.id}>
                 {(tournament.statusFlag === "now" ||

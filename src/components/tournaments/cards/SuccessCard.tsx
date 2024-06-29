@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import ButtonImage from "@/components/buttons/button-image";
 import Paragraph from "@/components/typography/paragraph";
@@ -20,6 +20,7 @@ import CancelButton from "@/assets/images/tournaments/buttons/cancel.svg";
 import CancelButtonH from "@/assets/images/tournaments/buttons/cancelH.svg";
 import PlayButton from "@/assets/images/tournaments/buttons/play.svg";
 import PlayButtonH from "@/assets/images/tournaments/buttons/playH.svg";
+import useUserTickets from "@/hooks/useUserTickets";
 
 const GrayContainerImg = new Image();
 GrayContainerImg.src = GrayContainer;
@@ -39,7 +40,13 @@ interface SuccessCardProps {
 
 const SuccessCard: React.FC<SuccessCardProps> = ({ tournament }) => {
   const { data, setAction } = useBuyTickets();
+  const { availableUserTickets, refresh } = useUserTickets(tournament.id);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const ticketData = data.find((item) => item.id === tournament.id);
 
@@ -111,6 +118,9 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ tournament }) => {
             <Paragraph color="rgba(42, 252, 253, 1)" fontSize="25px">
               {`${ticketData?.tickets} tickets`}
             </Paragraph>
+            <Paragraph color="white" fontSize="12px" fontFamily="Gotham-Light">
+              {`(${availableUserTickets} tickets available)`}
+            </Paragraph>
           </div>
         </div>
       </div>
@@ -120,6 +130,7 @@ const SuccessCard: React.FC<SuccessCardProps> = ({ tournament }) => {
           imgHover={PlayButtonH}
           height="50px"
           aspectRatio="30/11"
+          disabled={availableUserTickets === 0}
           onClick={() => {
             navigate("/game");
           }}

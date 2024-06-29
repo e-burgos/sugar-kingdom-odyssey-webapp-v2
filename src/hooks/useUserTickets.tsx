@@ -5,7 +5,7 @@ import { useCallback } from "react";
 
 const useUserTickets = (tournamentId: string) => {
   const { userId } = useAuth();
-  const { data, isSuccess } = GetTicketsByTournament(tournamentId);
+  const getTickets = GetTicketsByTournament(tournamentId);
 
   const handleFilter = useCallback(
     (filter: "all" | "used" | "available", ticket: ITicketResponse) => {
@@ -25,18 +25,21 @@ const useUserTickets = (tournamentId: string) => {
 
   const handleUserTickets = useCallback(
     (filter: "all" | "used" | "available") => {
-      if (data && isSuccess && userId) {
-        return data?.filter(
+      if (getTickets?.data && getTickets.isSuccess && userId) {
+        return getTickets.data?.filter(
           (ticket) =>
             ticket.userId === userId &&
             ticket.paymentComplete === true &&
+            ticket.paymentRegisteredDate !== null &&
             handleFilter(filter, ticket)
         );
       }
       return [];
     },
-    [data, handleFilter, isSuccess, userId]
+    [getTickets?.data, handleFilter, getTickets.isSuccess, userId]
   );
+
+  const refresh = () => getTickets.refetch();
 
   const availableUserTickets = handleUserTickets("available")?.length || 0;
   const usedUserTickets = handleUserTickets("used")?.length || 0;
@@ -47,6 +50,8 @@ const useUserTickets = (tournamentId: string) => {
     usedUserTickets,
     allUserTickets,
     handleUserTickets,
+    refresh,
+    isLoading: getTickets.isLoading || getTickets.isFetching,
   };
 };
 export default useUserTickets;

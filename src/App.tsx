@@ -11,7 +11,7 @@ function App() {
   // hooks
   const location = useLocation();
   const navigate = useNavigate();
-  const { userId } = useAuth();
+  const { userId, setLogout } = useAuth();
   const { unity } = useMessageSystem();
   const { handleRemoveUnityInstance } = unity;
   const { disconnectWallet } = useLogin();
@@ -42,6 +42,7 @@ function App() {
 
   useEffect(() => {
     if (userInactive) {
+      setLogout();
       disconnectWallet();
       setUserInactive(false);
       handleReload();

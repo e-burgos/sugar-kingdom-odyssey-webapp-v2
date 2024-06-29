@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./styles.module.css";
 import ButtonImage from "@/components/buttons/button-image";
 import Paragraph from "@/components/typography/paragraph";
@@ -48,7 +48,14 @@ const PlayNowCard: React.FC<PlayNowCardProps> = ({
   const navigate = useNavigate();
   const { setAction } = useBuyTickets();
 
-  const { availableUserTickets } = useUserTickets(tournament.id);
+  const { availableUserTickets, refresh, isLoading } = useUserTickets(
+    tournament.id
+  );
+
+  useEffect(() => {
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -104,7 +111,7 @@ const PlayNowCard: React.FC<PlayNowCardProps> = ({
         <ButtonImage
           img={PlayButton}
           imgHover={PlayButtonH}
-          disabled={availableUserTickets === 0}
+          disabled={availableUserTickets === 0 || isLoading}
           height="50px"
           aspectRatio="30/11"
           onClick={() => {

@@ -2,42 +2,28 @@ import { ITicketResponse } from "../ticket/types";
 import { IUserResponse } from "../user/types";
 
 export interface IGameResponse {
-  id: string;
-  validationErrors: string;
   ticketId: string;
-  startTime: string;
   endTime: string;
-  movements: number;
-  points: number;
-  user: {
-    id: string;
-    validationErrors: string;
-    wallet: string;
-    userName: string;
-  };
-}
-
-export interface IGamePostPayload {
-  ticketId: string;
-  startTime: string;
-  endTime: string;
-  movements: number;
-  points: number;
-  user: {
-    wallet: string;
-    userName: string;
-  };
-}
-
-export interface IUserGamesResponse {
-  ticketId: string;
-  startTime: string;
-  endTime: string;
-  movements: number;
-  points: number;
+  gameTime: number;
+  matches: number;
+  score: number;
+  maxCombo: number;
+  phase: number;
+  progress: number;
+  startDate: string;
   computed: boolean;
   ticket: ITicketResponse;
   user: IUserResponse;
   id: string;
   validationErrors: string;
+}
+
+export interface IGamePostPayload {
+  ticketId: string;
+  gameTime: number;
+  matches: number;
+  score: number;
+  maxCombo: number;
+  phase: number;
+  progress: number;
 }

@@ -1,9 +1,9 @@
 import { MethodType } from "@/api/utils/HeaderEncoder";
-import { IGamePostPayload, IGameResponse, IUserGamesResponse } from "./types";
+import { IGamePostPayload, IGameResponse } from "./types";
 
 export const gamePost = (
   userId: string,
-  payload: IGamePostPayload,
+  payload?: IGamePostPayload,
   responseType?: IGameResponse
 ) => {
   return {
@@ -19,7 +19,7 @@ export const gamePost = (
 
 export const gameGetByUser = (
   userId: string,
-  responseType?: IUserGamesResponse
+  responseType?: IGameResponse[]
 ) => {
   return {
     endpoint: `/api/user/${userId}/game`,

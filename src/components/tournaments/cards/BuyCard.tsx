@@ -46,7 +46,9 @@ interface BuyCardProps {
 
 const BuyCard: React.FC<BuyCardProps> = ({ tournament, hidePlusButton }) => {
   const { setAction } = useBuyTickets();
-  const { availableUserTickets } = useUserTickets(tournament.id);
+  const { availableUserTickets, isLoading, refresh } = useUserTickets(
+    tournament.id
+  );
 
   const TournamentType = `${tournament?.statusFlag
     .slice(0, 1)
@@ -169,13 +171,15 @@ const BuyCard: React.FC<BuyCardProps> = ({ tournament, hidePlusButton }) => {
       </div>
       {tournament?.statusFlag === "now" && (
         <ButtonImage
-          img={availableUserTickets ? PlayNowButton : PlayNowButtonH}
+          img={PlayNowButton}
           imgHover={PlayNowButtonH}
           width="220px"
           aspectRatio="63/29"
-          onClick={() =>
-            availableUserTickets > 0 && setAction(tournament.id, "play-now")
-          }
+          disabled={availableUserTickets === 0 || isLoading}
+          onClick={() => {
+            setAction(tournament.id, "play-now");
+            return refresh();
+          }}
         />
       )}
     </div>

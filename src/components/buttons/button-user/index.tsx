@@ -1,7 +1,6 @@
 import { FunctionComponent, useEffect, useState } from "react";
 import styles from "./button-user.module.css";
 import { useAuth } from "@/store/useAuth";
-import { GetScore } from "@/api/queries/versus/get-score";
 import { GetUserById } from "@/api/queries/user/get-user-by-id";
 
 // Assets
@@ -25,8 +24,7 @@ const ButtonUser: FunctionComponent<ButtonUserProps> = ({
   style,
   onClick,
 }) => {
-  const { userId, wallet, userName, setWallet, setUserName, setScore } =
-    useAuth();
+  const { userId, wallet, userName, setWallet, setUserName } = useAuth();
   const [hover, setHover] = useState<boolean>(false);
 
   const buttonBgImg = new Image();
@@ -44,14 +42,7 @@ const ButtonUser: FunctionComponent<ButtonUserProps> = ({
   };
 
   // Initialize score
-  const getScore = GetScore();
   const getUser = GetUserById();
-
-  useEffect(() => {
-    if (getScore.isSuccess) {
-      setScore(getScore.data?.score ? getScore.data.score : 0);
-    }
-  }, [getScore.data?.score, getScore.isSuccess, setScore]);
 
   useEffect(() => {
     if (getUser.isSuccess) {

@@ -22,7 +22,9 @@ export function GetLeaderboardByTournamentId(tournamentId: string) {
       if (!tournamentId) throw new Error("Tournament ID is required");
       const data = await axiosClient
         .get(leaderboardGetByTournamentId(tournamentId).endpoint, {
-          headers,
+          headers: {
+            ...headers,
+          },
         })
         .then((res) => res.data as ILeaderboardResponse);
       return data;
